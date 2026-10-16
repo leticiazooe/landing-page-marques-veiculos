@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-night: #0b0d0d;
+  --color-night-soft: #141716;
+  --color-ivory: #f8f5ed;
+  --color-paper: #eeeae0;
+  --color-cream: #f4f1ea;
+  --color-gold: #d5b16b;
+  --color-gold-light: #f0d7a4;
+  --color-gold-dark: #8d7348;
+  --color-sand: #b9b5aa;
+  --color-ink: #171a19;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
