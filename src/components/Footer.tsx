@@ -21,11 +21,11 @@ export function Footer() {
       <footer className="border-t border-white/10 bg-night px-6 py-10 text-ivory sm:py-12">
         <div className="mx-auto w-full max-w-[1400px]">
           <div className="flex flex-col justify-between gap-7 border-b border-white/10 pb-10 lg:flex-row lg:items-center">
-            <a href="#inicio" aria-label="Marques Veículos, início" className="w-[195px] focus-visible:outline-2 focus-visible:outline-gold"><img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} loading="lazy" /></a>
+            <a href="/#inicio" aria-label="Marques Veículos, início" className="w-[195px] focus-visible:outline-2 focus-visible:outline-gold"><img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} loading="lazy" /></a>
             <nav aria-label="Links do rodapé" className="flex flex-wrap items-center gap-x-7 gap-y-3">
               {navLinks.map(link => <a key={link.href} href={link.href} className="text-[12px] font-semibold text-ivory/65 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold">{link.label}</a>)}
             </nav>
-            <a href="#inicio" aria-label="Voltar ao início da página" className="flex h-11 w-11 items-center justify-center border border-white/20 text-gold transition-colors hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-gold"><ArrowUp aria-hidden="true" size={19} /></a>
+            <a href="/#inicio" aria-label="Voltar ao início da página" className="flex h-11 w-11 items-center justify-center border border-white/20 text-gold transition-colors hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-gold"><ArrowUp aria-hidden="true" size={19} /></a>
           </div>
           <div className="flex flex-col justify-between gap-3 pt-7 text-[11px] leading-relaxed text-ivory/50 sm:flex-row">
             <span>© {new Date().getFullYear()} {contact.company}. {contact.city}.</span>

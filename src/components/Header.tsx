@@ -50,7 +50,7 @@ export function Header() {
       />
       <div className={`border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${scrolled || menuOpen ? 'border-white/10 bg-night/95 backdrop-blur-xl' : 'border-white/10 bg-night/25 backdrop-blur-sm'}`}>
         <div className="mx-auto flex h-[86px] w-[min(1400px,calc(100%-48px))] items-center justify-between gap-8 lg:h-[104px] lg:w-[min(1400px,calc(100%-112px))]">
-          <a href="#inicio" aria-label="Marques Veículos, voltar ao início" onClick={() => setMenuOpen(false)} className="z-10 -ml-2 flex w-[176px] shrink-0 items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:w-[210px]">
+          <a href="/#inicio" aria-label="Marques Veículos, voltar ao início" onClick={() => setMenuOpen(false)} className="z-10 -ml-2 flex w-[176px] shrink-0 items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:w-[210px]">
             <img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} className="h-auto w-full object-contain" />
           </a>
           <nav aria-label="Navegação principal" className="hidden items-center gap-9 lg:flex xl:gap-12">

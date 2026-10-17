@@ -1,110 +1,71 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, CarFront } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CarFront, Fuel, Gauge, Settings2 } from 'lucide-react';
 import { Reveal } from './Reveal';
-import { collections, type VehicleCategory, type VehicleCollection, whatsappUrl } from '../data/site';
+import { vehicles, type Vehicle, type VehicleCategory, formatPrice, whatsappUrl } from '../data/site';
 
-type Filter = VehicleCategory | 'todos';
-const filters: { label: string; value: Filter }[] = [
-  { label: 'Todos os estilos', value: 'todos' },
-  { label: 'SUVs', value: 'suv' },
+const filters: { label: string; value: VehicleCategory | 'todos' }[] = [
+  { label: 'Todos os veículos', value: 'todos' },
   { label: 'Sedãs', value: 'sedan' },
-  { label: 'Esportivos', value: 'esportivo' },
+  { label: 'SUVs', value: 'suv' },
+  { label: 'Hatches', value: 'hatch' },
 ];
 
-function CategoryCard({ collection, featured }: { collection: VehicleCollection; featured: boolean }) {
-  const [imageFailed, setImageFailed] = useState(false);
+function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id: string) => void }) {
+  const message = whatsappUrl(`Olá! Vi o ${vehicle.make} ${vehicle.model} no site da Marques Veículos e gostaria de confirmar a disponibilidade, o preço e as condições de pagamento.`);
   return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, y: 24, scale: .985 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 16, scale: .985 }}
-      transition={{ duration: .48, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative isolate overflow-hidden bg-night-soft ${featured ? 'min-h-[510px] md:row-span-2 md:min-h-0' : 'min-h-[290px] md:min-h-0'}`}
-    >
-      <div className="absolute inset-0 -z-20 overflow-hidden">
-        <img
-          src={imageFailed ? '/images/capa-marques.webp' : collection.image}
-          alt={`Fotografia ilustrativa da categoria ${collection.name}`}
-          loading="lazy"
-          decoding="async"
-          onError={() => setImageFailed(true)}
-          className={`h-full w-full object-cover transition-transform duration-[1100ms] ease-luxe group-hover:scale-[1.065] ${imageFailed ? 'opacity-70 saturate-75' : 'opacity-80'}`}
-          style={{ objectPosition: collection.position }}
-        />
-      </div>
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/20 to-black/15" />
-      <div className="flex h-full min-h-[inherit] flex-col justify-between p-7 sm:p-9">
-        <div className="flex items-start justify-between">
-          <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[.21em] text-gold-light">
-            <span className="h-px w-6 bg-gold" /> {collection.descriptor}
-          </span>
-          <span className="rounded-full border border-white/35 p-2 text-ivory transition-colors group-hover:border-gold group-hover:bg-gold group-hover:text-night">
-            <ArrowUpRight aria-hidden="true" size={17} />
-          </span>
+    <motion.article layout initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} transition={{ duration: .42, ease: [0.22, 1, 0.36, 1] }} className="group flex min-w-0 flex-col overflow-hidden bg-white shadow-[0_12px_40px_rgba(22,18,11,0.06)]">
+      <button type="button" onClick={() => onDetails(vehicle.id)} aria-label={`Ver detalhes de ${vehicle.make} ${vehicle.model}`} className="relative block aspect-[1.32] w-full overflow-hidden bg-night text-left">
+        <img src={vehicle.image} alt={`Imagem gerada para apresentação do ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.045]" loading="lazy" decoding="async" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <span className="absolute left-5 top-5 bg-night/85 px-3 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-gold-light backdrop-blur-sm">Veículo ilustrativo</span>
+        <span className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center border border-white/60 bg-black/20 text-white transition-colors group-hover:bg-gold group-hover:text-night"><ArrowUpRight size={19} /></span>
+      </button>
+      <div className="flex grow flex-col p-5 sm:p-7">
+        <p className="text-[11px] font-semibold uppercase tracking-[.17em] text-gold-dark">{vehicle.make} · {vehicle.year}</p>
+        <h3 className="mt-2 font-sans text-[clamp(27px,2.5vw,35px)] font-semibold leading-tight tracking-[-.05em] text-ink">{vehicle.model}</h3>
+        <p className="mt-1 text-sm text-ink/55">{vehicle.trim}</p>
+        <div className="mt-5 grid grid-cols-3 gap-2 border-y border-ink/10 py-4 text-[11px] leading-normal text-ink/70">
+          <span className="flex flex-col items-start gap-2"><Gauge size={17} className="text-gold-dark" />{vehicle.km}</span>
+          <span className="flex flex-col items-start gap-2"><Settings2 size={17} className="text-gold-dark" />{vehicle.transmission}</span>
+          <span className="flex flex-col items-start gap-2"><Fuel size={17} className="text-gold-dark" />{vehicle.fuel}</span>
         </div>
-        <div>
-          <h3 className="font-display text-[clamp(52px,6vw,84px)] leading-[.95] font-medium tracking-[-.035em] text-white">{collection.name}</h3>
-          <p className="mt-3 max-w-[315px] text-sm leading-relaxed text-white/80">{collection.subtitle}</p>
-          <a href={whatsappUrl(`Olá! Gostaria de consultar a disponibilidade de ${collection.name} na Marques Veículos.`)} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-3 border-b border-gold/65 pb-1 text-[11px] font-bold uppercase tracking-[.12em] text-gold-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
-            Consultar opções <ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
-          </a>
+        <p className="mt-5 text-[11px] font-semibold uppercase tracking-[.16em] text-ink/55">Preço ilustrativo</p>
+        <p className="mt-1 text-[31px] font-semibold leading-none tracking-[-.055em] text-ink">{formatPrice(vehicle.price)}</p>
+        <div className="mt-auto grid gap-2 pt-6 sm:grid-cols-2">
+          <button type="button" onClick={() => onDetails(vehicle.id)} className="inline-flex min-h-12 items-center justify-center gap-2 border border-ink/25 px-3 text-[12px] font-semibold text-ink transition-colors hover:border-gold-dark hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Mais detalhes <ArrowRight size={16} /></button>
+          <a href={message} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 bg-ink px-3 text-[12px] font-semibold text-gold-light transition-colors hover:bg-[#33342f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Falar no WhatsApp <ArrowUpRight size={16} /></a>
         </div>
       </div>
     </motion.article>
   );
 }
 
-export function Collection() {
-  const [filter, setFilter] = useState<Filter>('todos');
-  const visible = collections.filter(item => filter === 'todos' || item.id === filter);
-  const all = filter === 'todos';
-
+export function Collection({ onDetails }: { onDetails: (id: string) => void }) {
+  const [filter, setFilter] = useState<VehicleCategory | 'todos'>('todos');
+  const visible = vehicles.filter(item => filter === 'todos' || item.category === filter);
   return (
     <section id="veiculos" aria-labelledby="catalog-title" className="bg-cream py-20 text-ink sm:py-24 lg:py-32">
       <div className="mx-auto w-[min(1400px,calc(100%-48px))] lg:w-[min(1400px,calc(100%-112px))]">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end lg:gap-16">
-          <Reveal className="max-w-[800px]">
-            <p className="mb-6 inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.21em] text-gold-dark"><CarFront aria-hidden="true" size={17} /> Explore possibilidades</p>
-            <h2 id="catalog-title" className="font-sans text-[clamp(38px,5vw,70px)] font-semibold leading-[1.12] tracking-[-.065em] text-ink">
-              Cada caminho merece <span className="font-display text-[1.16em] font-medium italic tracking-[-.04em] text-gold-dark">o carro certo.</span>
-            </h2>
+          <Reveal className="max-w-[770px]">
+            <p className="mb-5 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.19em] text-gold-dark"><CarFront size={18} /> Vitrine de veículos</p>
+            <h2 id="catalog-title" className="font-sans text-[clamp(38px,5vw,70px)] font-semibold leading-[1.12] tracking-[-.065em]">Encontre o próximo <span className="font-display text-[1.14em] font-normal italic tracking-[-.04em] text-gold-dark">capítulo.</span></h2>
           </Reveal>
-          <Reveal className="max-w-[365px]" delay={.1}>
-            <p className="text-[15px] leading-[1.85] text-ink/70">Explore estilos de veículos e converse com a garagem para saber quais modelos estão disponíveis no momento.</p>
-          </Reveal>
+          <Reveal className="max-w-[355px]" delay={.1}><p className="text-[15px] leading-[1.8] text-ink/70">Escolha um modelo para conhecer a ficha técnica e conversar diretamente com a garagem.</p></Reveal>
         </div>
-        <div className="mb-6 mt-12 flex flex-wrap items-center justify-between gap-5 border-t border-ink/15 pt-5 lg:mt-16">
-          <div role="group" aria-label="Filtrar categorias de veículos" className="flex flex-wrap gap-x-6 gap-y-2">
-            {filters.map(item => (
-              <button
-                key={item.value}
-                type="button"
-                onClick={() => setFilter(item.value)}
-                aria-pressed={filter === item.value}
-                className={`relative min-h-11 px-0 text-[12px] font-bold tracking-[.01em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ink' : 'text-ink/45 hover:text-ink/85'}`}
-              >
-                {item.label}
-                {filter === item.value && <motion.span layoutId="catalog-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" transition={{ type: 'spring', stiffness: 300, damping: 28 }} />}
-              </button>
-            ))}
+        <div className="mt-10 border border-[#b79a68]/45 bg-[#eee8dc] px-5 py-4 text-[13px] leading-relaxed text-ink/80 sm:mt-12">
+          <strong>Vitrine demonstrativa.</strong> As fotos são geradas por IA. Preços, ano, quilometragem, equipamentos e condições de pagamento são exemplos, não ofertas reais nem confirmação de estoque. Pluto é um modelo conceitual.
+        </div>
+        <div className="mb-7 mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-ink/15 pt-5">
+          <div role="group" aria-label="Filtrar veículos" className="flex flex-wrap gap-x-6 gap-y-1">
+            {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ink' : 'text-ink/50 hover:text-ink'}`}>{item.label}{filter === item.value && <motion.span layoutId="vehicle-filter-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
           </div>
-          <p aria-live="polite" className="text-[11px] font-medium tracking-[.02em] text-ink/50">{all ? '3 categorias para explorar' : '1 categoria para explorar'}</p>
+          <p aria-live="polite" className="text-xs text-ink/55">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} de demonstração</p>
         </div>
-        <motion.div layout className={`grid gap-4 md:grid-cols-2 ${all ? 'md:auto-rows-[280px]' : 'md:auto-rows-[460px]'}`}>
-          <AnimatePresence initial={false}>
-            {visible.map((item, index) => (
-              <CategoryCard key={item.id} collection={item} featured={all && index === 0} />
-            ))}
-          </AnimatePresence>
+        <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <AnimatePresence initial={false}>{visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}</AnimatePresence>
         </motion.div>
-        <div className="mt-6 flex flex-col justify-between gap-5 border-t border-ink/15 pt-6 text-[12px] text-ink/55 sm:flex-row sm:items-start">
-          <p className="max-w-[690px] leading-relaxed">* Categorias e fotografias ilustrativas. Esta seção não representa estoque disponível, preços ou condições comerciais.</p>
-          <a href={whatsappUrl('Olá! Gostaria de saber quais veículos estão disponíveis na garagem.')} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 shrink-0 items-center gap-3 font-bold uppercase tracking-[.12em] text-gold-dark hover:text-ink focus-visible:outline-2 focus-visible:outline-gold-dark">
-            Consultar disponibilidade <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
-        </div>
       </div>
     </section>
   );
