@@ -15,7 +15,7 @@ export function Story() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[43%] -translate-y-1/2 overflow-hidden select-none">
         <div className="marques-marquee-track flex w-max items-center">
           {[0, 1].map(copy => (
-            <div key={copy} className="flex shrink-0 items-center gap-[5vw] whitespace-nowrap pr-[5vw] font-display text-[clamp(120px,21vw,330px)] font-medium italic leading-none tracking-[-.065em] text-gold/[.11]">
+            <div key={copy} className="flex shrink-0 items-center gap-[5vw] whitespace-nowrap pr-[5vw] font-display text-[clamp(180px,29vw,510px)] font-medium italic leading-none tracking-[-.065em] text-gold/[.045]">
               <span>MARQUES VEÍCULOS</span>
               <span>MARQUES VEÍCULOS</span>
             </div>

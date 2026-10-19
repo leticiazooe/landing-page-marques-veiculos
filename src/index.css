@@ -23,7 +23,7 @@
 }
 
 .marques-marquee-track {
-  animation: marques-marquee 36s linear infinite;
+  animation: marques-marquee 160s linear infinite;
   will-change: transform;
 }
 

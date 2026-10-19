@@ -60,7 +60,7 @@ export function BrandStrip() {
           >
             {brands.map(({ name, Logo }) => (
               <li key={name} className="group flex min-h-29 w-[104px] shrink-0 snap-center flex-col items-center justify-center gap-2.5 px-2 text-center xl:w-auto xl:shrink">
-                <Logo size={61} aria-hidden="true" className="h-[61px] w-[61px] opacity-55 transition-[opacity,transform] duration-500 ease-luxe group-hover:scale-[1.055] group-hover:opacity-95 motion-reduce:transform-none" />
+                <Logo width={61} height={61} aria-hidden="true" className="h-[61px] w-[61px] opacity-55 transition-[opacity,transform] duration-500 ease-luxe group-hover:scale-[1.055] group-hover:opacity-95 motion-reduce:transform-none" />
                 <span className="text-[11px] font-semibold tracking-[.045em] text-ivory/55 transition-colors duration-500 group-hover:text-gold-light">
                   {name}
                 </span>
