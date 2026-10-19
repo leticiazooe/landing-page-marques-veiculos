@@ -43,12 +43,10 @@ export function Hero() {
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 border-t border-white/20 bg-night/15">
-        <div className="mx-auto flex min-h-[72px] w-[min(1400px,calc(100%-48px))] items-center justify-between gap-4 lg:w-[min(1400px,calc(100%-112px))]">
-          <span className="hidden text-[13px] font-semibold uppercase tracking-[.21em] text-white/65 sm:block">Marques Veículos · Garagem</span>
+        <div className="mx-auto flex min-h-[72px] w-[min(1400px,calc(100%-48px))] items-center justify-center gap-4 lg:w-[min(1400px,calc(100%-112px))]">
           <a href="#veiculos" className="group inline-flex min-h-12 items-center gap-4 text-[13px] font-semibold uppercase tracking-[.19em] text-ivory/85 hover:text-gold focus-visible:outline-2 focus-visible:outline-gold">
             Role para descobrir <ArrowDown aria-hidden="true" size={16} className="transition-transform duration-300 group-hover:translate-y-1" />
           </a>
-          <span className="text-[13px] font-semibold uppercase tracking-[.16em] text-gold-light">Interior de SP</span>
         </div>
       </div>
     </section>
