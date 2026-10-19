@@ -131,6 +131,32 @@ export function AdminPanel() {
     } finally { setSaving(false); }
   };
 
+  const publish = async (row: VehicleRow) => {
+    if (!supabase || access !== 'admin' || saving) return;
+    if (row.is_conceptual || !row.image || Number(row.price) <= 0) {
+      setError('Para publicar, é necessário um veículo real, com foto e preço válido. Abra Editar e complete os dados.');
+      return;
+    }
+    if (!window.confirm(`Publicar ${row.make} ${row.model} por ${formatPrice(Number(row.price))} na vitrine pública? Confira a marca, categoria e os demais dados antes de confirmar.`)) return;
+    setSaving(true);
+    setError('');
+    setNotice('');
+    try {
+      const { data, error: publishError } = await supabase.from('marques_vehicles')
+        .update({ status: 'published' })
+        .eq('id', row.id)
+        .eq('status', 'draft')
+        .select('id');
+      if (publishError || !data?.length) throw new Error('Não foi possível publicar. Confira seus dados e tente novamente.');
+      setNotice('Veículo publicado na vitrine com sucesso.');
+      await load();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Falha ao publicar o veículo.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const remove = async (row: VehicleRow) => {
     if (!supabase || access !== 'admin') return;
     if (!window.confirm(`Excluir ${row.make} ${row.model}? Essa ação não pode ser desfeita.`)) return;
@@ -187,6 +213,7 @@ export function AdminPanel() {
               {vehicle.image ? <img src={vehicle.image} alt={`${vehicle.make} ${vehicle.model}`} className="h-28 w-full shrink-0 object-cover sm:h-23 sm:w-36" loading="lazy" /> : <div className="flex h-23 w-36 shrink-0 items-center justify-center bg-cream text-ink/35"><CarFront size={28}/></div>}
               <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-3"><h3 className="text-[20px] font-semibold">{vehicle.make} {vehicle.model}</h3><span className={`px-2.5 py-1 text-[12px] font-bold ${vehicle.status === 'published' ? 'bg-[#e8efe8] text-[#335b35]' : vehicle.status === 'sold' ? 'bg-[#eee9df] text-ink/65' : 'bg-[#fff0cf] text-[#7b5b22]'}`}>{statusLabel[vehicle.status]}</span></div><p className="mt-1 text-[15px] text-ink/65">{vehicle.trim} · {vehicle.year || 'Ano não informado'} · {vehicle.km || 'KM não informado'}</p><p className="mt-2 text-[18px] font-semibold">{formatPrice(vehicle.price)}</p></div>
               <div className="flex shrink-0 flex-wrap items-center gap-2">
+                {vehicle.status === 'draft' && <button type="button" disabled={saving} onClick={() => void publish(vehicle)} className="inline-flex min-h-11 items-center gap-2 bg-gold px-4 text-[14px] font-semibold text-night transition-colors hover:bg-gold-light disabled:opacity-50"><ShieldCheck size={16} /> Publicar</button>}
                 {vehicle.status === 'published' && <a href={`/?veiculo=${encodeURIComponent(vehicle.id)}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border border-ink/15 px-3 text-[14px] font-semibold hover:border-gold-dark">Visualizar <ArrowUpRight size={16}/></a>}
                 <button onClick={() => { setNotice(''); setEditing(vehicle); }} className="inline-flex min-h-11 items-center gap-2 border border-ink/15 px-3 text-[14px] font-semibold hover:border-gold-dark"><Pencil size={16}/> Editar</button>
                 <button onClick={() => void remove(vehicle)} className="inline-flex min-h-11 items-center gap-2 border border-red-200 px-3 text-[14px] font-semibold text-red-700 hover:bg-red-50"><Trash2 size={16}/> Excluir</button>
