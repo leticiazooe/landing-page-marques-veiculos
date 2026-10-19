@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, CarFront, Fuel, Gauge, Settings2 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CarFront, ChevronDown, Fuel, Gauge, Settings2 } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { vehicles, type Vehicle, type VehicleCategory, formatPrice, whatsappUrl } from '../data/site';
 
@@ -10,6 +10,31 @@ const filters: { label: string; value: VehicleCategory | 'todos' }[] = [
   { label: 'SUVs', value: 'suv' },
   { label: 'Hatches', value: 'hatch' },
 ];
+
+type SortOrder = 'padrao' | 'menor-preco' | 'maior-preco' | 'mais-recentes' | 'mais-antigos' | 'menor-km';
+
+const sortOptions: { value: SortOrder; label: string }[] = [
+  { value: 'padrao', label: 'Ordem padrão' },
+  { value: 'menor-preco', label: 'Menor preço' },
+  { value: 'maior-preco', label: 'Maior preço' },
+  { value: 'mais-recentes', label: 'Mais recentes' },
+  { value: 'mais-antigos', label: 'Mais antigos' },
+  { value: 'menor-km', label: 'Menor quilometragem' },
+];
+
+const modelYear = (vehicle: Vehicle) => Number(vehicle.year.split('/').at(-1) ?? 0);
+const mileage = (vehicle: Vehicle) => Number(vehicle.km.replace(/\D/g, ''));
+
+function compareVehicles(a: Vehicle, b: Vehicle, order: SortOrder): number {
+  switch (order) {
+    case 'menor-preco': return a.price - b.price;
+    case 'maior-preco': return b.price - a.price;
+    case 'mais-recentes': return modelYear(b) - modelYear(a);
+    case 'mais-antigos': return modelYear(a) - modelYear(b);
+    case 'menor-km': return mileage(a) - mileage(b);
+    default: return 0;
+  }
+}
 
 function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id: string) => void }) {
   const message = whatsappUrl(`Olá! Vi o ${vehicle.make} ${vehicle.model} no site da Marques Veículos e gostaria de confirmar a disponibilidade, o preço e as condições de pagamento.`);
@@ -43,7 +68,10 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
 
 export function Collection({ onDetails }: { onDetails: (id: string) => void }) {
   const [filter, setFilter] = useState<VehicleCategory | 'todos'>('todos');
-  const visible = vehicles.filter(item => filter === 'todos' || item.category === filter);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('padrao');
+  const visible = vehicles
+    .filter(item => filter === 'todos' || item.category === filter)
+    .sort((a, b) => compareVehicles(a, b, sortOrder));
   return (
     <section id="veiculos" aria-labelledby="catalog-title" className="bg-cream py-20 text-ink sm:py-24 lg:py-32">
       <div className="mx-auto w-[min(1400px,calc(100%-48px))] lg:w-[min(1400px,calc(100%-112px))]">
@@ -54,11 +82,27 @@ export function Collection({ onDetails }: { onDetails: (id: string) => void }) {
           </Reveal>
           <Reveal className="max-w-[355px]" delay={.1}><p className="text-[15px] leading-[1.8] text-ink/70">Veja os detalhes de cada modelo e tire suas dúvidas pelo WhatsApp.</p></Reveal>
         </div>
-        <div className="mb-7 mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-ink/15 pt-5">
-          <div role="group" aria-label="Filtrar veículos" className="flex flex-wrap gap-x-6 gap-y-1">
+        <div className="mb-7 mt-12 flex flex-col gap-5 border-t border-ink/15 pt-5 lg:flex-row lg:items-center lg:justify-between">
+          <div role="group" aria-label="Filtrar veículos por categoria" className="flex flex-wrap gap-x-6 gap-y-1">
             {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ink' : 'text-ink/50 hover:text-ink'}`}>{item.label}{filter === item.value && <motion.span layoutId="vehicle-filter-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
           </div>
-          <p aria-live="polite" className="text-xs text-ink/55">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} na vitrine</p>
+          <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 sm:justify-end">
+            <p aria-live="polite" className="text-xs text-ink/55">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} na vitrine</p>
+            <div className="flex items-center gap-3">
+              <label htmlFor="vehicle-sort" className="shrink-0 text-[12px] font-medium text-ink/65">Ordenar por</label>
+              <div className="relative">
+                <select
+                  id="vehicle-sort"
+                  value={sortOrder}
+                  onChange={event => setSortOrder(event.target.value as SortOrder)}
+                  className="min-h-11 min-w-[176px] appearance-none border border-ink/20 bg-transparent py-2 pl-3 pr-9 text-[13px] font-semibold text-ink transition-colors hover:border-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark sm:min-w-[192px]"
+                >
+                  {sortOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+                </select>
+                <ChevronDown aria-hidden="true" size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gold-dark" />
+              </div>
+            </div>
+          </div>
         </div>
         <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence initial={false}>{visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}</AnimatePresence>
