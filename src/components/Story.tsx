@@ -1,5 +1,4 @@
 import { ArrowUpRight, MessageCircle, MapPinned, CarFront } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
 import { Reveal } from './Reveal';
 import { whatsappUrl } from '../data/site';
 
@@ -10,25 +9,18 @@ const journey = [
 ] as const;
 
 export function Story() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section id="garagem" aria-labelledby="story-title" className="relative isolate overflow-hidden bg-night py-24 sm:py-28 lg:py-36">
       <div aria-hidden="true" className="pointer-events-none absolute left-[-17vw] top-10 h-[620px] w-[620px] rounded-full bg-gold/[.035] blur-[110px]" />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[43%] -translate-y-1/2 overflow-hidden select-none">
-        <motion.div
-          className="flex w-max items-center"
-          initial={false}
-          animate={reduceMotion ? { x: '0%' } : { x: ['0%', '-50%'] }}
-          transition={reduceMotion ? undefined : { duration: 42, ease: 'linear', repeat: Infinity }}
-        >
+        <div className="marques-marquee-track flex w-max items-center">
           {[0, 1].map(copy => (
-            <div key={copy} className="flex shrink-0 items-center gap-[6vw] whitespace-nowrap pr-[6vw] font-display text-[clamp(125px,22vw,360px)] font-medium italic leading-none tracking-[-.065em] text-gold/[.16]">
+            <div key={copy} className="flex shrink-0 items-center gap-[5vw] whitespace-nowrap pr-[5vw] font-display text-[clamp(120px,21vw,330px)] font-medium italic leading-none tracking-[-.065em] text-gold/[.11]">
               <span>MARQUES VEÍCULOS</span>
               <span>MARQUES VEÍCULOS</span>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
       <div className="relative mx-auto grid w-[min(1400px,calc(100%-48px))] gap-12 lg:w-[min(1400px,calc(100%-112px))] lg:grid-cols-[1.14fr_.86fr] lg:gap-20">
         <div className="lg:sticky lg:top-40 lg:self-start">

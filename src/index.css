@@ -15,3 +15,21 @@
   --font-display: "Cormorant Garamond", Georgia, serif;
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Letreiro de marca: animação contínua, independente do ciclo de renderização React. */
+@keyframes marques-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marques-marquee-track {
+  animation: marques-marquee 26s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marques-marquee-track {
+    animation: none;
+    will-change: auto;
+  }
+}
