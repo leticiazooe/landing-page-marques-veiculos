@@ -15,7 +15,23 @@ export function Hero() {
   return (
     <section ref={section} id="inicio" aria-labelledby="hero-title" className="relative isolate flex min-h-[850px] items-end overflow-hidden bg-night lg:h-[100svh] lg:min-h-[780px] lg:max-h-[1080px] lg:items-center">
       <motion.div aria-hidden="true" className="absolute inset-0 -z-30" style={reduce ? undefined : { scale, y: translate }}>
-        <img src="/images/capa-marques.webp" alt="" width={1920} height={1434} fetchPriority="high" className="h-full w-full object-cover object-[52%_center] lg:object-[center_52%]" />
+        {reduce ? (
+          <img src="/images/capa-marques.webp" alt="" width={1920} height={1434} fetchPriority="high" className="h-full w-full object-cover object-[52%_center] lg:object-[center_52%]" />
+        ) : (
+          <video
+            className="h-full w-full object-cover object-[52%_center] lg:object-[center_52%]"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/capa-marques.webp"
+            aria-hidden="true"
+            disablePictureInPicture
+          >
+            <source src="/videos/marques-hero.mp4" type="video/mp4" />
+          </video>
+        )}
       </motion.div>
       <div aria-hidden="true" className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,rgba(7,9,9,.5)_0%,rgba(7,9,9,.26)_20%,rgba(7,9,9,.60)_52%,rgba(7,9,9,.89)_100%)] lg:bg-[linear-gradient(90deg,rgba(6,8,8,.93)_0%,rgba(6,8,8,.82)_27%,rgba(6,8,8,.38)_58%,rgba(6,8,8,.06)_100%)]" />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-[28%] bg-gradient-to-t from-night/80 to-transparent" />
