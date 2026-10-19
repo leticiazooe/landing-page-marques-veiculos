@@ -69,7 +69,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
   );
 }
 
-export function Collection({ onDetails, vehicles, error }: { onDetails: (id: string) => void; vehicles: Vehicle[]; error?: string }) {
+export function Collection({ onDetails, vehicles, loading = false, error }: { onDetails: (id: string) => void; vehicles: Vehicle[]; loading?: boolean; error?: string }) {
   const [filter, setFilter] = useState<VehicleCategory | 'todos'>('todos');
   const [sortOrder, setSortOrder] = useState<SortOrder>('padrao');
   const visible = vehicles
@@ -107,7 +107,7 @@ export function Collection({ onDetails, vehicles, error }: { onDetails: (id: str
             </div>
           </div>
         </div>
-        {error ? <div role="alert" className="border border-[#bd945b] bg-white p-8 text-[17px] text-ink">{error}</div> : visible.length === 0 ? <div className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Nenhum veículo nesta categoria no momento. Fale com a equipe pelo WhatsApp para consultar novas opções.</div> : <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {loading ? <div role="status" aria-live="polite" className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Carregando os veículos disponíveis...</div> : error ? <div role="alert" className="border border-[#bd945b] bg-white p-8 text-[17px] text-ink">{error}</div> : visible.length === 0 ? <div className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Nenhum veículo nesta categoria no momento. Fale com a equipe pelo WhatsApp para consultar novas opções.</div> : <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence initial={false}>{visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}</AnimatePresence>
         </motion.div>}
       </div>
