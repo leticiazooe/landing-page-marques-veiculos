@@ -14,7 +14,8 @@
     "lucide-react": "^0.468.0",
     "motion": "^12.0.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@cardog-icons/react": "^1.2.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
