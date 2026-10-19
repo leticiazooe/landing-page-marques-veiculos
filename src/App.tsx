@@ -35,7 +35,7 @@ export default function App() {
       <div className="min-h-screen overflow-clip bg-night font-sans text-ivory selection:bg-gold selection:text-night">
         <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:p-4 focus:text-night">Ir para o conteúdo</a>
         <Header />
-        <main id="conteudo">{selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /> : <><Hero /><Collection onDetails={id => navigate(id)} /><BrandStrip /><Story /><Visit /></>}</main>
+        <main id="conteudo">{selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /> : <><Hero /><BrandStrip /><Collection onDetails={id => navigate(id)} /><Story /><Visit /></>}</main>
         <Footer />
       </div>
     </MotionConfig>
