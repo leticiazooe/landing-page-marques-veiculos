@@ -39,3 +39,11 @@ Front-end React/Vite, área `/admin`, catálogo e fluxo de publicação, integra
 5. Upload não aceita extensões/tamanhos não permitidos.
 6. Validar CSP/headers na URL real de produção e revisão de recursos de terceiros.
 7. Configurar proteção de senha vazada, MFA e rate limit onde suportado.
+
+## Continuação da auditoria — 19/10/2026
+- Criada a tabela de histórico `marques_vehicle_audit` e um trigger para INSERT/UPDATE/DELETE, preservando ID de veículo, ator autenticado, horário e versões anterior/posterior. O histórico é somente leitura para administradores; não há permissão de exclusão para o cliente web.
+- Confirmados os gatilhos de auditoria e atualização como ativos.
+- Consolidada a leitura da tabela de veículos em uma política SELECT por role, evitando sobreposição de políticas permissivas indicada pelo advisor de performance. Visitantes continuam acessando somente anúncios publicados.
+- O advisor de segurança continua alertando que a proteção contra senhas vazadas está desabilitada; requer alteração na configuração Supabase Auth.
+- A auditoria registra futuras operações; ela não reconstrói o histórico anterior. Não foram alterados os anúncios existentes durante esta etapa.
+- O advisor classifica o índice novo de auditoria como não utilizado; isso é esperado antes de consultas ao histórico e não justifica removê-lo.
