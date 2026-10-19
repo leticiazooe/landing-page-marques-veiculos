@@ -1,14 +1,17 @@
 import { ArrowUpRight, MessageCircle, MapPinned, CarFront } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Reveal } from './Reveal';
 import { whatsappUrl } from '../data/site';
 
 const journey = [
-  { number: '01', icon: MessageCircle, title: 'Comece a conversa', detail: 'Fale sobre o que procura e tire suas dúvidas diretamente pelo WhatsApp.' },
-  { number: '02', icon: CarFront, title: 'Conheça as opções', detail: 'Consulte quais veículos estão disponíveis e peça mais informações.' },
-  { number: '03', icon: MapPinned, title: 'Visite a garagem', detail: 'Encontre a Marques Veículos em Ibitinga e conheça o espaço.' },
+  { icon: MessageCircle, title: 'Comece a conversa', detail: 'Fale sobre o que procura e tire suas dúvidas diretamente pelo WhatsApp.' },
+  { icon: CarFront, title: 'Conheça as opções', detail: 'Consulte quais veículos estão disponíveis e peça mais informações.' },
+  { icon: MapPinned, title: 'Visite a garagem', detail: 'Encontre a Marques Veículos em Ibitinga e conheça o espaço.' },
 ] as const;
 
 export function Story() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section id="garagem" aria-labelledby="story-title" className="relative isolate overflow-hidden bg-night py-24 sm:py-28 lg:py-36">
       <div aria-hidden="true" className="pointer-events-none absolute left-[-17vw] top-10 h-[620px] w-[620px] rounded-full bg-gold/[.035] blur-[110px]" />
@@ -41,16 +44,18 @@ export function Story() {
           {journey.map((item, index) => {
             const Icon = item.icon;
             return (
-              <Reveal key={item.number} delay={index * .065}>
-                <div className="grid grid-cols-[38px_1fr] gap-4 border-b border-white/15 py-9 sm:grid-cols-[56px_1fr] sm:gap-6 sm:py-12">
-                  <span className="pt-1 text-[13px] font-semibold tracking-[.13em] text-gold-dark">{item.number}</span>
-                  <div>
-                    <Icon aria-hidden="true" size={22} strokeWidth={1.35} className="mb-7 text-gold" />
-                    <h3 className="font-display text-[clamp(29px,3.3vw,44px)] leading-none font-medium text-ivory">{item.title}</h3>
-                    <p className="mt-4 max-w-[370px] text-[16px] leading-[1.8] text-ivory/58">{item.detail}</p>
-                  </div>
-                </div>
-              </Reveal>
+              <motion.article
+                key={item.title}
+                initial={reduceMotion ? false : { opacity: 0, y: 44 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2, margin: '0px 0px -55px 0px' }}
+                transition={{ duration: 0.85, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="border-b border-white/15 py-9 sm:py-12"
+              >
+                <Icon aria-hidden="true" size={22} strokeWidth={1.35} className="mb-7 text-gold" />
+                <h3 className="font-display text-[clamp(29px,3.3vw,44px)] leading-none font-medium text-ivory">{item.title}</h3>
+                <p className="mt-4 max-w-[370px] text-[16px] leading-[1.8] text-ivory/58">{item.detail}</p>
+              </motion.article>
             );
           })}
         </div>
