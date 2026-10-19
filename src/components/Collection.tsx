@@ -16,9 +16,9 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
   return (
     <motion.article layout initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} transition={{ duration: .42, ease: [0.22, 1, 0.36, 1] }} className="group flex min-w-0 flex-col overflow-hidden bg-white shadow-[0_12px_40px_rgba(22,18,11,0.06)]">
       <button type="button" onClick={() => onDetails(vehicle.id)} aria-label={`Ver detalhes de ${vehicle.make} ${vehicle.model}`} className="relative block aspect-[1.32] w-full overflow-hidden bg-night text-left">
-        <img src={vehicle.image} alt={`Imagem gerada para apresentação do ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.045]" loading="lazy" decoding="async" />
+        <img src={vehicle.image} alt={`Imagem ilustrativa do ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.045]" loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        <span className="absolute left-5 top-5 bg-night/85 px-3 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-gold-light backdrop-blur-sm">Veículo ilustrativo</span>
+        <span className="absolute left-5 top-5 bg-night/85 px-3 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-gold-light backdrop-blur-sm">Imagem ilustrativa</span>
         <span className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center border border-white/60 bg-black/20 text-white transition-colors group-hover:bg-gold group-hover:text-night"><ArrowUpRight size={19} /></span>
       </button>
       <div className="flex grow flex-col p-5 sm:p-7">
@@ -30,7 +30,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
           <span className="flex flex-col items-start gap-2"><Settings2 size={17} className="text-gold-dark" />{vehicle.transmission}</span>
           <span className="flex flex-col items-start gap-2"><Fuel size={17} className="text-gold-dark" />{vehicle.fuel}</span>
         </div>
-        <p className="mt-5 text-[11px] font-semibold uppercase tracking-[.16em] text-ink/55">Preço ilustrativo</p>
+        <p className="mt-5 text-[11px] font-semibold uppercase tracking-[.16em] text-ink/55">Preço de exemplo</p>
         <p className="mt-1 text-[31px] font-semibold leading-none tracking-[-.055em] text-ink">{formatPrice(vehicle.price)}</p>
         <div className="mt-auto grid gap-2 pt-6 sm:grid-cols-2">
           <button type="button" onClick={() => onDetails(vehicle.id)} className="inline-flex min-h-12 items-center justify-center gap-2 border border-ink/25 px-3 text-[12px] font-semibold text-ink transition-colors hover:border-gold-dark hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Mais detalhes <ArrowRight size={16} /></button>
@@ -50,18 +50,15 @@ export function Collection({ onDetails }: { onDetails: (id: string) => void }) {
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end lg:gap-16">
           <Reveal className="max-w-[770px]">
             <p className="mb-5 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.19em] text-gold-dark"><CarFront size={18} /> Vitrine de veículos</p>
-            <h2 id="catalog-title" className="font-sans text-[clamp(38px,5vw,70px)] font-semibold leading-[1.12] tracking-[-.065em]">Encontre o próximo <span className="font-display text-[1.14em] font-normal italic tracking-[-.04em] text-gold-dark">capítulo.</span></h2>
+            <h2 id="catalog-title" className="font-sans text-[clamp(38px,5vw,70px)] font-semibold leading-[1.12] tracking-[-.065em]">Conheça os <span className="font-display text-[1.14em] font-normal italic tracking-[-.04em] text-gold-dark">modelos.</span></h2>
           </Reveal>
-          <Reveal className="max-w-[355px]" delay={.1}><p className="text-[15px] leading-[1.8] text-ink/70">Escolha um modelo para conhecer a ficha técnica e conversar diretamente com a garagem.</p></Reveal>
+          <Reveal className="max-w-[355px]" delay={.1}><p className="text-[15px] leading-[1.8] text-ink/70">Veja os detalhes de cada modelo e tire suas dúvidas pelo WhatsApp.</p></Reveal>
         </div>
-        <div className="mt-10 border border-[#b79a68]/45 bg-[#eee8dc] px-5 py-4 text-[13px] leading-relaxed text-ink/80 sm:mt-12">
-          <strong>Vitrine demonstrativa.</strong> As fotos são geradas por IA. Preços, ano, quilometragem, equipamentos e condições de pagamento são exemplos, não ofertas reais nem confirmação de estoque. Pluto é um modelo conceitual.
-        </div>
-        <div className="mb-7 mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-ink/15 pt-5">
+        <div className="mb-7 mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-ink/15 pt-5">
           <div role="group" aria-label="Filtrar veículos" className="flex flex-wrap gap-x-6 gap-y-1">
             {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[13px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ink' : 'text-ink/50 hover:text-ink'}`}>{item.label}{filter === item.value && <motion.span layoutId="vehicle-filter-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
           </div>
-          <p aria-live="polite" className="text-xs text-ink/55">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} de demonstração</p>
+          <p aria-live="polite" className="text-xs text-ink/55">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} na vitrine</p>
         </div>
         <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence initial={false}>{visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}</AnimatePresence>

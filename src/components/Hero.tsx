@@ -30,7 +30,7 @@ export function Hero() {
             <motion.em className="block font-display text-[1.17em] font-normal leading-[.99] tracking-[-.04em] text-gold-light" initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ ...intro, delay: .41 }}>na estrada.</motion.em>
           </h1>
           <motion.p initial={{ opacity: 0, y: 21 }} animate={{ opacity: 1, y: 0 }} transition={{ ...intro, delay: .56 }} className="mt-7 max-w-[450px] text-[15px] leading-[1.9] text-ivory/78 md:text-[17px]">
-            Conheça a Marques Veículos. Uma garagem em Ibitinga para descobrir possibilidades e encontrar seu próximo carro.
+            Estamos em Ibitinga. Conheça os modelos apresentados e converse com a equipe sobre o carro que você procura.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ ...intro, delay: .7 }} className="mt-8 flex flex-wrap items-center gap-5 sm:mt-10 sm:gap-7">
             <a href="#veiculos" className="group inline-flex min-h-14 items-center justify-between gap-6 bg-gold px-6 text-xs font-bold uppercase tracking-[.1em] text-night transition-all duration-300 hover:bg-gold-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light sm:px-8">

@@ -46,7 +46,7 @@ export const vehicles: Vehicle[] = [
     year: '2021/2021', km: '46.000 km', transmission: 'Automático', transmissionDetail: 'CVT',
     fuel: 'Gasolina', engine: '1.5 Turbo', doors: '4 portas', color: 'Preto', drive: 'Dianteira',
     price: 139900, image: '/images/honda-civic.webp',
-    description: 'Um sedã de presença marcante, com proposta de conforto e tecnologia para o dia a dia. Esta ficha é um exemplo de apresentação e não descreve uma unidade disponível.',
+    description: 'Um sedã com câmbio automático, motor turbo e equipamentos voltados ao conforto no dia a dia. Os dados desta ficha são exemplos.',
     equipment: ['Ar-condicionado digital', 'Bancos em couro', 'Central multimídia', 'Câmera de ré', 'Controle de estabilidade', 'Piloto automático'],
   },
   {
@@ -54,7 +54,7 @@ export const vehicles: Vehicle[] = [
     year: '2020/2020', km: '56.000 km', transmission: 'Automático', transmissionDetail: '8 marchas',
     fuel: 'Gasolina', engine: '2.0 Turbo', doors: '4 portas', color: 'Preto', drive: 'Sob consulta',
     price: 189900, image: '/images/volvo-xc60.webp',
-    description: 'Um SUV sofisticado, com espaço e conforto. Ano, versão, quilometragem e itens foram escolhidos para ilustrar o formato de uma ficha comercial.',
+    description: 'Um SUV para quem procura espaço, conforto e câmbio automático. Ano, versão, quilometragem e equipamentos são dados de exemplo.',
     equipment: ['Bancos em couro', 'Ar-condicionado digital', 'Sensores de estacionamento', 'Central multimídia', 'Assistente de permanência em faixa', 'Controle de estabilidade'],
   },
   {
@@ -62,15 +62,15 @@ export const vehicles: Vehicle[] = [
     year: '2023/2024', km: '21.500 km', transmission: 'Automático', transmissionDetail: '6 marchas (ilustrativo)',
     fuel: 'Flex (ilustrativo)', engine: '1.0 Turbo (ilustrativo)', doors: '4 portas', color: 'Preto', drive: 'Dianteira (ilustrativo)',
     price: 92900, image: '/images/pluto.webp', conceptual: true,
-    description: 'Veículo conceitual criado exclusivamente para apresentar o terceiro card do catálogo. Pluto Concept não corresponde a um modelo identificado em estoque.',
+    description: 'O Pluto é um conceito visual usado para apresentar a experiência do catálogo. Não corresponde a um carro à venda.',
     equipment: ['Ar-condicionado', 'Central multimídia', 'Câmera de ré', 'Rodas de liga leve', 'Sensor de estacionamento', 'Controle de estabilidade'],
   },
 ];
 
 export const paymentMethods = [
-  { title: 'PIX ou transferência', description: 'Pagamento à vista, sujeito à confirmação dos dados e condições pela garagem.' },
-  { title: 'Financiamento', description: 'Consultar disponibilidade, análise de crédito, entrada, taxa e instituição financeira.' },
-  { title: 'Veículo na troca', description: 'Possibilidade a consultar, mediante avaliação do veículo e negociação individual.' },
+  { title: 'PIX ou transferência', description: 'Consulte a garagem sobre pagamento à vista e instruções para transferência.' },
+  { title: 'Financiamento', description: 'Consulte a possibilidade de financiamento, entrada e condições de crédito.' },
+  { title: 'Veículo na troca', description: 'Pergunte sobre a avaliação de um veículo usado como parte do pagamento.' },
 ];
 
 export const formatPrice = (price: number) =>

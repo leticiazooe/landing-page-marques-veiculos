@@ -18,10 +18,10 @@ export function Story() {
           <Reveal>
             <p className="mb-7 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[.21em] text-gold"><span aria-hidden="true" className="h-px w-8 bg-gold" /> A garagem</p>
             <h2 id="story-title" className="max-w-[690px] font-sans text-[clamp(41px,5.3vw,76px)] font-semibold leading-[1.09] tracking-[-.066em] text-ivory">
-              O destino é seu. <em className="block font-display text-[1.2em] font-normal tracking-[-.042em] text-gold-light">A jornada começa aqui.</em>
+              Seu próximo carro começa <em className="block font-display text-[1.2em] font-normal tracking-[-.042em] text-gold-light">com uma conversa.</em>
             </h2>
             <p className="mt-8 max-w-[460px] text-[16px] leading-[1.9] text-ivory/65">
-              Procurando um novo carro? Um bom ponto de partida é conversar, conhecer possibilidades e escolher com calma aquilo que faz sentido para você.
+              Conte à equipe que tipo de carro você procura. Pergunte sobre os modelos disponíveis e tire suas dúvidas antes de visitar a garagem.
             </p>
             <a href={whatsappUrl('Olá! Gostaria de conversar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group mt-9 inline-flex min-h-12 items-center gap-3 border-b border-gold/60 pb-1 text-[11px] font-bold uppercase tracking-[.13em] text-gold-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
               Iniciar conversa <ArrowUpRight aria-hidden="true" size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
