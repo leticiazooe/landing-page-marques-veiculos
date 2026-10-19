@@ -27,8 +27,7 @@ export function Hero() {
             muted
             loop
             playsInline
-            preload="metadata"
-            poster="/images/capa-marques.webp"
+            preload="auto"
             aria-hidden="true"
             disablePictureInPicture
           >
