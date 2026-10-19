@@ -21,7 +21,7 @@ export function VehicleDetails({ vehicle, onBack }: { vehicle: Vehicle; onBack: 
   useEffect(() => { document.title = `${vehicle.make} ${vehicle.model} | Marques Veículos`; return () => { document.title = 'Marques Veículos — Garagem em Ibitinga'; }; }, [vehicle]);
   const chat = whatsappUrl(`Olá! Vi a ficha ilustrativa do ${vehicle.make} ${vehicle.model} ${vehicle.trim} (${vehicle.year}) no site da Marques Veículos. Vocês têm um modelo semelhante disponível? Gostaria de confirmar preço, ficha técnica e formas de pagamento.`);
   return (
-    <article className="min-h-screen bg-cream pb-20 pt-[110px] text-ink lg:pt-[136px]">
+    <article className="min-h-screen bg-cream pb-20 pt-[126px] text-ink lg:pt-[156px]">
       <div className="mx-auto w-[min(1400px,calc(100%-48px))] lg:w-[min(1400px,calc(100%-112px))]">
         <button onClick={onBack} className="mb-7 inline-flex min-h-11 items-center gap-2 text-[16px] font-semibold text-ink/65 hover:text-gold-dark focus-visible:outline-2 focus-visible:outline-gold-dark" type="button"><ArrowLeft size={18} /> Voltar aos veículos</button>
         <div className="grid gap-9 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,.9fr)] lg:gap-12">
