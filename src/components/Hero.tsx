@@ -37,7 +37,7 @@ export function Hero() {
       </motion.div>
       <div aria-hidden="true" className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,rgba(5,7,7,.53)_0%,rgba(5,7,7,.68)_44%,rgba(5,7,7,.96)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,7,7,.98)_0%,rgba(5,7,7,.94)_21%,rgba(5,7,7,.81)_40%,rgba(5,7,7,.34)_69%,rgba(5,7,7,.09)_100%)]" />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-night/85 to-transparent" />
-      <div className="relative z-10 mx-auto flex w-[min(1520px,calc(100%-40px))] items-center pb-[138px] pt-[186px] sm:w-[min(1520px,calc(100%-64px))] sm:pb-[145px] lg:w-[min(1520px,calc(100%-112px))] lg:pb-[96px] lg:pt-[150px]">
+      <div className="relative z-10 mx-auto flex w-[calc(100%-40px)] items-center pb-[138px] pt-[186px] sm:w-[calc(100%-64px)] sm:pb-[145px] lg:w-[calc(100%-96px)] lg:pb-[96px] lg:pt-[150px]">
         <div className="max-w-[690px]">
           <motion.div {...entrance(.10, 12)} className="mb-8 text-[12px] font-semibold uppercase tracking-[.22em] text-gold-light sm:mb-10 sm:text-[13px]">
             Ibitinga, São Paulo
