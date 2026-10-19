@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, ArrowUpRight, CarFront, ChevronDown, Fuel, Gauge, Settings2 } from 'lucide-react';
 import { Reveal } from './Reveal';
-import { vehicles, type Vehicle, type VehicleCategory, formatPrice, whatsappUrl } from '../data/site';
+import { type Vehicle, type VehicleCategory, formatPrice, whatsappUrl } from '../data/site';
 
 const filters: { label: string; value: VehicleCategory | 'todos' }[] = [
   { label: 'Todos os veículos', value: 'todos' },
