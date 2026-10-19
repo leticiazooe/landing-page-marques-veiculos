@@ -9,6 +9,9 @@ const filters: { label: string; value: VehicleCategory | 'todos' }[] = [
   { label: 'Sedãs', value: 'sedan' },
   { label: 'SUVs', value: 'suv' },
   { label: 'Hatches', value: 'hatch' },
+  { label: 'Picapes', value: 'picape' },
+  { label: 'Esportivos', value: 'esportivo' },
+  { label: 'Outros', value: 'outro' },
 ];
 
 type SortOrder = 'padrao' | 'menor-preco' | 'maior-preco' | 'mais-recentes' | 'mais-antigos' | 'menor-km';
@@ -43,7 +46,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
       <button type="button" onClick={() => onDetails(vehicle.id)} aria-label={`Ver detalhes de ${vehicle.make} ${vehicle.model}`} className="relative block aspect-[1.32] w-full overflow-hidden bg-night text-left">
         <img src={vehicle.image} alt={`Imagem ilustrativa do ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.045]" loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        <span className="absolute left-5 top-5 bg-night/85 px-3 py-2 text-[13px] font-bold uppercase tracking-[.14em] text-gold-light backdrop-blur-sm">Imagem ilustrativa</span>
+        {vehicle.illustrative && <span className="absolute left-5 top-5 bg-night/85 px-3 py-2 text-[13px] font-bold uppercase tracking-[.14em] text-gold-light backdrop-blur-sm">Imagem ilustrativa</span>}
         <span className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center border border-white/60 bg-black/20 text-white transition-colors group-hover:bg-gold group-hover:text-night"><ArrowUpRight size={19} /></span>
       </button>
       <div className="flex grow flex-col p-5 sm:p-7">
@@ -55,7 +58,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
           <span className="flex flex-col items-start gap-2"><Settings2 size={17} className="text-gold-dark" />{vehicle.transmission}</span>
           <span className="flex flex-col items-start gap-2"><Fuel size={17} className="text-gold-dark" />{vehicle.fuel}</span>
         </div>
-        <p className="mt-5 text-[13px] font-semibold uppercase tracking-[.16em] text-ink/55">Preço de exemplo</p>
+        <p className="mt-5 text-[13px] font-semibold uppercase tracking-[.16em] text-ink/55">{vehicle.illustrative ? 'Preço de exemplo' : 'Valor anunciado'}</p>
         <p className="mt-1 text-[31px] font-semibold leading-none tracking-[-.055em] text-ink">{formatPrice(vehicle.price)}</p>
         <div className="mt-auto grid gap-2 pt-6 sm:grid-cols-2">
           <button type="button" onClick={() => onDetails(vehicle.id)} className="inline-flex min-h-12 items-center justify-center gap-2 border border-ink/25 px-3 text-[14px] font-semibold text-ink transition-colors hover:border-gold-dark hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Mais detalhes <ArrowRight size={16} /></button>
@@ -66,7 +69,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
   );
 }
 
-export function Collection({ onDetails }: { onDetails: (id: string) => void }) {
+export function Collection({ onDetails, vehicles, error }: { onDetails: (id: string) => void; vehicles: Vehicle[]; error?: string }) {
   const [filter, setFilter] = useState<VehicleCategory | 'todos'>('todos');
   const [sortOrder, setSortOrder] = useState<SortOrder>('padrao');
   const visible = vehicles
@@ -104,9 +107,9 @@ export function Collection({ onDetails }: { onDetails: (id: string) => void }) {
             </div>
           </div>
         </div>
-        <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {error ? <div role="alert" className="border border-[#bd945b] bg-white p-8 text-[17px] text-ink">{error}</div> : visible.length === 0 ? <div className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Nenhum veículo nesta categoria no momento. Fale com a equipe pelo WhatsApp para consultar novas opções.</div> : <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence initial={false}>{visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}</AnimatePresence>
-        </motion.div>
+        </motion.div>}
       </div>
     </section>
   );

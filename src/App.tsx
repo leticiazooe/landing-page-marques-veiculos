@@ -8,13 +8,31 @@ import { Story } from './components/Story';
 import { BrandStrip } from './components/BrandStrip';
 import { Visit } from './components/Visit';
 import { Footer } from './components/Footer';
-import { vehicles } from './data/site';
+import { vehicles, type Vehicle } from './data/site';
+import { getPublicVehicles } from './lib/catalog';
+import { catalogConfigured } from './lib/supabase';
+import { AdminPanel } from './components/AdminPanel';
 
 function readVehicle(): string | null { return new URLSearchParams(window.location.search).get('veiculo'); }
 
 export default function App() {
   const [id, setId] = useState<string | null>(readVehicle);
-  const selected = vehicles.find(v => v.id === id);
+  const isAdmin = window.location.pathname.replace(/\/$/, '') === '/admin';
+  const [catalog, setCatalog] = useState<Vehicle[]>(catalogConfigured ? [] : vehicles);
+  const [catalogLoading, setCatalogLoading] = useState(catalogConfigured && !isAdmin);
+  const [catalogError, setCatalogError] = useState('');
+
+  useEffect(() => {
+    if (isAdmin || !catalogConfigured) return;
+    let active = true;
+    getPublicVehicles()
+      .then(records => { if (active) { setCatalog(records); setCatalogError(''); } })
+      .catch(() => { if (active) setCatalogError('Não foi possível carregar os veículos. Tente atualizar a página.'); })
+      .finally(() => { if (active) setCatalogLoading(false); });
+    return () => { active = false; };
+  }, [isAdmin]);
+
+  const selected = catalog.find(v => v.id === id);
   useEffect(() => {
     const onPop = () => setId(readVehicle());
     window.addEventListener('popstate', onPop);
@@ -30,12 +48,13 @@ export default function App() {
     if (!next) requestAnimationFrame(() => document.getElementById('veiculos')?.scrollIntoView({ behavior: 'instant' }));
   }, []);
   useEffect(() => { if (!selected) document.title = 'Marques Veículos — Garagem em Ibitinga'; }, [selected]);
+  if (isAdmin) return <AdminPanel />;
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen overflow-clip bg-night font-sans text-ivory selection:bg-gold selection:text-night">
         <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:p-4 focus:text-night">Ir para o conteúdo</a>
         <Header solid={Boolean(selected)} />
-        <main id="conteudo">{selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /> : <><Hero /><BrandStrip /><Collection onDetails={id => navigate(id)} /><Story /><Visit /></>}</main>
+        <main id="conteudo">{catalogLoading ? <div className="flex min-h-[75vh] items-center justify-center bg-night pt-32 text-[18px] text-ivory/80" role="status">Carregando veículos...</div> : selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /> : <><Hero /><BrandStrip /><Collection vehicles={catalog} error={catalogError} onDetails={id => navigate(id)} /><Story /><Visit /></>}</main>
         <Footer />
       </div>
     </MotionConfig>

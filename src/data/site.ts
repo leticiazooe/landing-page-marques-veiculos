@@ -16,7 +16,7 @@ export function whatsappUrl(message: string): string {
   return `https://wa.me/5516996414542?text=${encodeURIComponent(message)}`;
 }
 
-export type VehicleCategory = 'sedan' | 'suv' | 'hatch';
+export type VehicleCategory = 'sedan' | 'suv' | 'hatch' | 'picape' | 'esportivo' | 'outro';
 export type Vehicle = {
   id: string;
   make: string;
@@ -37,6 +37,10 @@ export type Vehicle = {
   description: string;
   equipment: string[];
   conceptual?: boolean;
+  illustrative?: boolean;
+  gallery?: string[];
+  paymentMethods?: string[];
+  status?: 'draft' | 'published' | 'sold';
 };
 
 /** Conteúdo 100% DEMONSTRATIVO: não é estoque ou anúncio comercial real. */
@@ -47,7 +51,7 @@ export const vehicles: Vehicle[] = [
     fuel: 'Gasolina', engine: '1.5 Turbo', doors: '4 portas', color: 'Preto', drive: 'Dianteira',
     price: 139900, image: '/images/honda-civic.webp',
     description: 'Um sedã com câmbio automático, motor turbo e equipamentos voltados ao conforto no dia a dia. Os dados desta ficha são exemplos.',
-    equipment: ['Ar-condicionado digital', 'Bancos em couro', 'Central multimídia', 'Câmera de ré', 'Controle de estabilidade', 'Piloto automático'],
+    illustrative: true, equipment: ['Ar-condicionado digital', 'Bancos em couro', 'Central multimídia', 'Câmera de ré', 'Controle de estabilidade', 'Piloto automático'],
   },
   {
     id: 'volvo-xc60', make: 'Volvo', model: 'XC60', trim: 'T5 Momentum 2.0', category: 'suv',
@@ -55,7 +59,7 @@ export const vehicles: Vehicle[] = [
     fuel: 'Gasolina', engine: '2.0 Turbo', doors: '4 portas', color: 'Preto', drive: 'Sob consulta',
     price: 189900, image: '/images/volvo-xc60.webp',
     description: 'Um SUV para quem procura espaço, conforto e câmbio automático. Ano, versão, quilometragem e equipamentos são dados de exemplo.',
-    equipment: ['Bancos em couro', 'Ar-condicionado digital', 'Sensores de estacionamento', 'Central multimídia', 'Assistente de permanência em faixa', 'Controle de estabilidade'],
+    illustrative: true, equipment: ['Bancos em couro', 'Ar-condicionado digital', 'Sensores de estacionamento', 'Central multimídia', 'Assistente de permanência em faixa', 'Controle de estabilidade'],
   },
   {
     id: 'pluto-concept', make: 'Pluto', model: 'Concept', trim: '1.0 Turbo AT', category: 'hatch',
@@ -63,7 +67,7 @@ export const vehicles: Vehicle[] = [
     fuel: 'Flex (ilustrativo)', engine: '1.0 Turbo (ilustrativo)', doors: '4 portas', color: 'Preto', drive: 'Dianteira (ilustrativo)',
     price: 92900, image: '/images/pluto.webp', conceptual: true,
     description: 'O Pluto é um conceito visual usado para apresentar a experiência do catálogo. Não corresponde a um carro à venda.',
-    equipment: ['Ar-condicionado', 'Central multimídia', 'Câmera de ré', 'Rodas de liga leve', 'Sensor de estacionamento', 'Controle de estabilidade'],
+    illustrative: true, equipment: ['Ar-condicionado', 'Central multimídia', 'Câmera de ré', 'Rodas de liga leve', 'Sensor de estacionamento', 'Controle de estabilidade'],
   },
 ];
 
