@@ -46,7 +46,7 @@ export function Hero() {
           <h1 id="hero-title" className="max-w-[690px] font-sans text-[clamp(43px,5.15vw,82px)] font-semibold leading-[1.095] tracking-[-.071em] text-ivory">
             <motion.span className="block" {...entrance(.22, 27)}>O seu próximo</motion.span>
             <motion.span className="block" {...entrance(.34, 27)}>capítulo começa</motion.span>
-            <motion.span className="mt-5 block font-brand text-[.71em] font-medium uppercase leading-[1.12] tracking-[.055em] text-gold-light sm:mt-6 sm:tracking-[.08em]" {...entrance(.47, 20)}>na estrada.</motion.span>
+            <motion.em className="mt-3 block font-display text-[1.17em] font-normal leading-[.99] tracking-[-.04em] text-gold-light" {...entrance(.47, 20)}>na estrada.</motion.em>
           </h1>
           <motion.p {...entrance(.59)} className="mt-9 max-w-[460px] border-l border-gold/65 pl-5 text-[17px] leading-[1.85] text-ivory/85 sm:mt-10 sm:pl-6 sm:text-[18px]">
             Estamos em Ibitinga. Conheça os modelos apresentados e converse com a equipe sobre o carro que você procura.
