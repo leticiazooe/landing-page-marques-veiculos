@@ -52,3 +52,8 @@ A criação destes arquivos não constitui deploy. Caso a instalação npm não 
 ## Detalhes e pagamentos
 
 Cada veículo possui botão **Mais detalhes**, com ficha de transmissão, combustível, ano, quilometragem, motorização e equipamentos. O botão **Falar no WhatsApp** abre a conversa com mensagem contextual. As modalidades PIX/transferência, financiamento e troca são **apenas sugestões não confirmadas** pela Marques Veículos e aparecem assim na interface. A pessoa responsável pelo site deve validar informações e formas de pagamento antes de divulgar ofertas.
+
+
+## Painel administrativo
+
+O cadastro de veículos foi implementado em React com autenticação Supabase, upload de fotos e permissões RLS. Acesse `/admin` depois de configurar o projeto Supabase. Consulte [ADMIN.md](ADMIN.md) para a instalação e o procedimento de liberação de contas. Sem configuração, o painel permanece bloqueado e a vitrine atual mantém os exemplos anteriores.
