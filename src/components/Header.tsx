@@ -49,19 +49,19 @@ export function Header() {
         style={{ scaleX: smoothProgress }}
       />
       <div className={`border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${scrolled || menuOpen ? 'border-white/10 bg-night/95 backdrop-blur-xl' : 'border-white/10 bg-night/25 backdrop-blur-sm'}`}>
-        <div className="mx-auto flex h-[86px] w-[min(1400px,calc(100%-48px))] items-center justify-between gap-8 lg:h-[104px] lg:w-[min(1400px,calc(100%-112px))]">
-          <a href="/#inicio" aria-label="Marques Veículos, voltar ao início" onClick={() => setMenuOpen(false)} className="z-10 -ml-2 flex w-[176px] shrink-0 items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:w-[210px]">
+        <div className="mx-auto flex h-[86px] w-[min(1400px,calc(100%-48px))] items-center justify-between gap-8 lg:h-[96px] lg:w-[min(1400px,calc(100%-112px))]">
+          <a href="/#inicio" aria-label="Marques Veículos, voltar ao início" onClick={() => setMenuOpen(false)} className="z-10 -ml-2 flex w-[176px] shrink-0 items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:w-[194px]">
             <img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} className="h-auto w-full object-contain" />
           </a>
-          <nav aria-label="Navegação principal" className="hidden items-center gap-5 lg:flex xl:gap-8">
+          <nav aria-label="Navegação principal" className="hidden items-center gap-6 lg:flex xl:gap-9">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="group relative py-3 text-[14px] font-semibold tracking-[.035em] text-ivory/85 transition-colors hover:text-gold-light focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-gold">
+              <a key={link.href} href={link.href} className="group relative py-3 text-[14px] font-semibold tracking-[.035em] text-ivory/90 transition-colors hover:text-gold-light focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-gold">
                 {link.label}
                 <span aria-hidden="true" className="absolute bottom-1 left-0 h-px w-0 bg-gold transition-[width] duration-300 group-hover:w-full" />
               </a>
             ))}
           </nav>
-          <a href={contactLink} target="_blank" rel="noopener noreferrer" className="group hidden min-h-11 items-center gap-5 border border-gold/70 px-5 text-[13px] font-bold uppercase tracking-[.13em] text-gold-light transition-colors duration-300 hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:inline-flex">
+          <a href={contactLink} target="_blank" rel="noopener noreferrer" className="group hidden min-h-12 items-center gap-4 border border-gold/60 bg-night/20 px-5 text-[13px] font-semibold uppercase tracking-[.08em] text-gold-light transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:inline-flex">
             Falar com a garagem <ArrowUpRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
           <button
