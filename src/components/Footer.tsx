@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Instagram } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { contact, navLinks, whatsappUrl } from '../data/site';
 
@@ -24,6 +24,9 @@ export function Footer() {
             <a href="/#inicio" aria-label="Marques Veículos, início" className="w-[195px] focus-visible:outline-2 focus-visible:outline-gold"><img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} loading="lazy" /></a>
             <nav aria-label="Links do rodapé" className="flex flex-wrap items-center gap-x-7 gap-y-3">
               {navLinks.map(link => <a key={link.href} href={link.href} className="text-[14px] font-semibold text-ivory/65 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold">{link.label}</a>)}
+              <a href="https://www.instagram.com/marquesveiculos_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Marques Veículos (abre em nova aba)" className="inline-flex items-center gap-2 text-[14px] font-semibold text-ivory/65 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold">
+                <Instagram aria-hidden="true" size={18} strokeWidth={1.8} /> Instagram
+              </a>
             </nav>
             <a href="/#inicio" aria-label="Voltar ao início da página" className="flex h-11 w-11 items-center justify-center border border-white/20 text-gold transition-colors hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-gold"><ArrowUp aria-hidden="true" size={19} /></a>
           </div>
