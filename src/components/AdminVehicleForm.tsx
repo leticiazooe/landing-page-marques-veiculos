@@ -90,6 +90,7 @@ export function AdminVehicleForm({ vehicle, saving, onSave, onClose }: Props) {
       gallery: galleryText.split(/\r?\n/).map(item => item.trim()).filter(Boolean),
     };
     if (!payload.make || !payload.model) { setError('Informe a marca e o modelo.'); return; }
+    if (payload.make.length > 100 || payload.model.length > 120 || payload.description.length > 5000 || payload.equipment.length > 100 || payload.gallery.length > 24) { setError('Algum campo excedeu o limite permitido.'); return; }
     if (payload.price < 0 || !Number.isFinite(payload.price)) { setError('Informe um preço válido.'); return; }
     if (payload.status === 'published' && (!payload.price || (!payload.image && files.length === 0 && payload.gallery.length === 0))) {
       setError('Para publicar, informe um preço e pelo menos uma foto.');

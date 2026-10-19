@@ -97,7 +97,7 @@ export function AdminPanel() {
       const urls: string[] = [];
       for (const file of files) {
         if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Use apenas fotos JPG, PNG ou WebP.');
-        if (file.size > 8 * 1024 * 1024) throw new Error('Cada foto pode ter até 8 MB.');
+        if (file.size > 8 * 1024 * 1024 || file.size === 0) throw new Error('Cada foto deve ter entre 1 byte e 8 MB.');
         const extension = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
         const path = `${crypto.randomUUID()}.${extension}`;
         const { error: uploadError } = await supabase.storage.from('marques-vehicles')
@@ -114,9 +114,10 @@ export function AdminPanel() {
         image: values.image || urls[0] || values.gallery[0] || '',
         gallery: [...values.gallery, ...urls.filter(url => url !== (values.image || urls[0]))],
       };
-      if (payload.status === 'published' && (!payload.image || payload.price <= 0)) {
+      if (payload.status === 'published' && (payload.is_conceptual || !payload.image || payload.price <= 0)) {
         throw new Error('Para publicar, adicione uma foto e informe o preço.');
       }
+      if (payload.gallery.length > 24 || payload.equipment.length > 100) throw new Error('Limite de galeria ou equipamentos excedido.');
       const query = id
         ? supabase.from('marques_vehicles').update(payload).eq('id', id)
         : supabase.from('marques_vehicles').insert(payload);
