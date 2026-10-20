@@ -54,7 +54,7 @@ export function Hero() {
             <a href="#veiculos" className="group inline-flex min-h-[60px] items-center justify-between gap-8 rounded-xl bg-[linear-gradient(110deg,#785720,#b58a3d,#d3b273,#97712d,#6a4b19)] bg-[length:200%_200%] px-7 text-[13px] font-bold uppercase tracking-[.08em] text-[#20180c] shadow-[0_8px_24px_rgba(0,0,0,.2)] transition-[background-position,transform,box-shadow] duration-700 ease-in-out hover:scale-[.97] hover:bg-right hover:shadow-[3px_3px_12px_rgba(0,0,0,.2)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light motion-reduce:transform-none sm:px-9">
               Conhecer veículos <ArrowRight aria-hidden="true" size={20} className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
             </a>
-            <a href={whatsappUrl('Olá! Quero conhecer as opções da Marques Veículos.')} target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-12 items-center gap-3 border-b border-ivory/35 text-[15px] font-medium text-ivory transition-[color,border-color] duration-300 hover:border-gold-light hover:text-gold-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
+            <a href={whatsappUrl('Olá! Quero conhecer as opções da Marques Veículos.')} target="_blank" rel="noopener noreferrer" className="rounded-xl group inline-flex min-h-12 items-center gap-3 border-b border-ivory/35 text-[15px] font-medium text-ivory transition-[color,border-color] duration-300 hover:border-gold-light hover:text-gold-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
               Conversar com a equipe <ArrowUpRight aria-hidden="true" size={18} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none" />
             </a>
           </motion.div>
@@ -63,7 +63,7 @@ export function Hero() {
       <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/15 bg-night/25">
         <div className="mx-auto flex min-h-[74px] w-[min(1400px,calc(100%-44px))] items-center justify-between gap-5 sm:w-[min(1400px,calc(100%-64px))] lg:w-[min(1400px,calc(100%-112px))]">
           <span className="hidden text-[12px] font-semibold uppercase tracking-[.17em] text-ivory/50 sm:block">Marques Veículos · Garagem</span>
-          <a href="#veiculos" className="group inline-flex min-h-12 items-center gap-3 text-[12px] font-semibold uppercase tracking-[.16em] text-ivory/80 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold-light">
+          <a href="#veiculos" className="rounded-xl group inline-flex min-h-12 items-center gap-3 text-[12px] font-semibold uppercase tracking-[.16em] text-ivory/80 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold-light">
             Explore a garagem <ArrowDown aria-hidden="true" size={17} className="transition-transform duration-300 group-hover:translate-y-1 motion-reduce:transform-none" />
           </a>
         </div>

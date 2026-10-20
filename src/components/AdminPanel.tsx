@@ -13,8 +13,8 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   return <div className="min-h-screen bg-cream font-sans text-ink">
     <header className="border-b border-gold/20 bg-night text-ivory">
       <div className="mx-auto flex min-h-21 w-[min(1440px,calc(100%-36px))] flex-wrap items-center justify-between gap-4 py-3 sm:w-[min(1440px,calc(100%-80px))]">
-        <a href="/" aria-label="Voltar ao site da Marques Veículos" className="flex items-center gap-4"><img src="/images/logo-marques.png" className="h-14 w-32 object-contain" width={128} height={56} alt="Marques Veículos" /><span className="hidden border-l border-white/20 pl-4 text-[13px] font-semibold uppercase tracking-wider text-gold-light sm:block">Administração</span></a>
-        <a className="inline-flex min-h-11 items-center gap-2 text-[14px] text-ivory/80 hover:text-gold-light" href="/">Voltar ao site <ArrowUpRight size={17} /></a>
+        <a href="/" aria-label="Voltar ao site da Marques Veículos" className="rounded-xl flex items-center gap-4"><img src="/images/logo-marques.png" className="h-14 w-32 object-contain" width={128} height={56} alt="Marques Veículos" /><span className="hidden border-l border-white/20 pl-4 text-[13px] font-semibold uppercase tracking-wider text-gold-light sm:block">Administração</span></a>
+        <a className="rounded-xl inline-flex min-h-11 items-center gap-2 text-[14px] text-ivory/80 hover:text-gold-light" href="/">Voltar ao site <ArrowUpRight size={17} /></a>
       </div>
     </header>
     {children}
@@ -181,7 +181,7 @@ export function AdminPanel() {
         <div><label htmlFor="admin-email" className="mb-2 block text-[15px] font-semibold">E-mail</label><input id="admin-email" className={inputClass} autoComplete="username" type="email" required value={email} onChange={e => setEmail(e.target.value)} /></div>
         <div><label htmlFor="admin-password" className="mb-2 block text-[15px] font-semibold">Senha</label><input id="admin-password" className={inputClass} autoComplete="current-password" type="password" required value={password} onChange={e => setPassword(e.target.value)} /></div>
         {loginError && <p role="alert" className="text-[14px] text-red-800">{loginError}</p>}
-        <button disabled={signing} type="submit" className="min-h-13 w-full bg-night px-6 text-[16px] font-semibold text-gold-light disabled:opacity-60">{signing ? 'Entrando...' : 'Entrar com segurança'}</button>
+        <button disabled={signing} type="submit" className="rounded-xl min-h-13 w-full bg-night px-6 text-[16px] font-semibold text-gold-light disabled:opacity-60">{signing ? 'Entrando...' : 'Entrar com segurança'}</button>
       </form>
     </main>
   </AdminShell>;
@@ -215,7 +215,7 @@ export function AdminPanel() {
               <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-3"><h3 className="text-[20px] font-semibold">{vehicle.make} {vehicle.model}</h3><span className={`px-2.5 py-1 text-[12px] font-bold ${vehicle.status === 'published' ? 'bg-[#e8efe8] text-[#335b35]' : vehicle.status === 'sold' ? 'bg-[#eee9df] text-ink/65' : 'bg-[#fff0cf] text-[#7b5b22]'}`}>{statusLabel[vehicle.status]}</span></div><p className="mt-1 text-[15px] text-ink/65">{vehicle.trim} · {vehicle.year || 'Ano não informado'} · {vehicle.km || 'KM não informado'}</p><p className="mt-2 text-[18px] font-semibold">{formatPrice(vehicle.price)}</p></div>
               <div className="flex shrink-0 flex-wrap items-center gap-2">
                 {vehicle.status === 'draft' && <button type="button" disabled={saving} onClick={() => void publish(vehicle)} className="inline-flex min-h-11 items-center gap-2 bg-gold px-4 text-[14px] font-semibold text-night transition-colors hover:bg-gold-light disabled:opacity-50"><ShieldCheck size={16} /> Publicar</button>}
-                {vehicle.status === 'published' && <a href={`/?veiculo=${encodeURIComponent(vehicle.id)}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 border border-ink/15 px-3 text-[14px] font-semibold hover:border-gold-dark">Visualizar <ArrowUpRight size={16}/></a>}
+                {vehicle.status === 'published' && <a href={`/?veiculo=${encodeURIComponent(vehicle.id)}`} target="_blank" rel="noopener noreferrer" className="rounded-xl inline-flex min-h-11 items-center gap-2 border border-ink/15 px-3 text-[14px] font-semibold hover:border-gold-dark">Visualizar <ArrowUpRight size={16}/></a>}
                 <button onClick={() => { setNotice(''); setEditing(vehicle); }} className="inline-flex min-h-11 items-center gap-2 border border-ink/15 px-3 text-[14px] font-semibold hover:border-gold-dark"><Pencil size={16}/> Editar</button>
                 <button onClick={() => void remove(vehicle)} className="inline-flex min-h-11 items-center gap-2 border border-red-200 px-3 text-[14px] font-semibold text-red-700 hover:bg-red-50"><Trash2 size={16}/> Excluir</button>
               </div>

@@ -35,7 +35,7 @@ export function Story() {
             <p className="mt-8 max-w-[460px] text-[18px] leading-[1.9] text-ivory/65">
               Conte à equipe que tipo de carro você procura. Pergunte sobre os modelos disponíveis e tire suas dúvidas antes de visitar a garagem.
             </p>
-            <a href={whatsappUrl('Olá! Gostaria de conversar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group mt-9 inline-flex min-h-12 items-center gap-3 border-b border-gold/60 pb-1 text-[13px] font-bold uppercase tracking-[.13em] text-gold-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
+            <a href={whatsappUrl('Olá! Gostaria de conversar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="rounded-xl group mt-9 inline-flex min-h-12 items-center gap-3 border-b border-gold/60 pb-1 text-[13px] font-bold uppercase tracking-[.13em] text-gold-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
               Iniciar conversa <ArrowUpRight aria-hidden="true" size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </Reveal>

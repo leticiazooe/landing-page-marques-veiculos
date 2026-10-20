@@ -55,13 +55,13 @@ export function Header({ solid = false }: { solid?: boolean }) {
           </a>
           <nav aria-label="Navegação principal" className="hidden items-center gap-6 lg:flex xl:gap-9">
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="group relative py-3 text-[14px] font-semibold tracking-[.035em] text-ivory/90 transition-colors hover:text-gold-light focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-gold">
+              <a key={link.href} href={link.href} className="rounded-xl group relative py-3 text-[14px] font-semibold tracking-[.035em] text-ivory/90 transition-colors hover:text-gold-light focus-visible: focus-visible:outline-2 focus-visible:outline-gold">
                 {link.label}
                 <span aria-hidden="true" className="absolute bottom-1 left-0 h-px w-0 bg-gold transition-[width] duration-300 group-hover:w-full" />
               </a>
             ))}
           </nav>
-          <a href={contactLink} target="_blank" rel="noopener noreferrer" className="group hidden min-h-12 items-center gap-4 border border-gold/60 bg-night/20 px-5 text-[13px] font-semibold uppercase tracking-[.08em] text-gold-light transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:inline-flex">
+          <a href={contactLink} target="_blank" rel="noopener noreferrer" className="rounded-xl group hidden min-h-12 items-center gap-4 border border-gold/60 bg-night/20 px-5 text-[13px] font-semibold uppercase tracking-[.08em] text-gold-light transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:inline-flex">
             Falar com a garagem <ArrowUpRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
           <button

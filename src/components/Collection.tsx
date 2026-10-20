@@ -62,7 +62,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
         <p className="mt-1 text-[31px] font-semibold leading-none tracking-[-.055em] text-ink">{formatPrice(vehicle.price)}</p>
         <div className="mt-auto grid gap-2 pt-6 sm:grid-cols-2">
           <button type="button" onClick={() => onDetails(vehicle.id)} className="inline-flex min-h-12 items-center justify-center gap-2 border border-ink/25 px-3 text-[14px] font-semibold text-ink transition-colors hover:border-gold-dark hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Mais detalhes <ArrowRight size={16} /></button>
-          <a href={message} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 bg-ink px-3 text-[14px] font-semibold text-gold-light transition-colors hover:bg-[#33342f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Falar no WhatsApp <ArrowUpRight size={16} /></a>
+          <a href={message} target="_blank" rel="noopener noreferrer" className="rounded-xl inline-flex min-h-12 items-center justify-center gap-2 bg-ink px-3 text-[14px] font-semibold text-gold-light transition-colors hover:bg-[#33342f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Falar no WhatsApp <ArrowUpRight size={16} /></a>
         </div>
       </div>
     </motion.article>

@@ -107,7 +107,7 @@ export function AdminVehicleForm({ vehicle, saving, onSave, onClose }: Props) {
   return (
     <form onSubmit={submit} className="space-y-8" aria-label="Cadastro de veículo">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <button type="button" onClick={onClose} className="inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-ink/70 hover:text-ink"><ArrowLeft size={18} /> Voltar à lista</button>
+        <button type="button" onClick={onClose} className="rounded-xl inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-ink/70 hover:text-ink"><ArrowLeft size={18} /> Voltar à lista</button>
         <span className="text-[13px] text-ink/60">{vehicle?.id ? 'Editando veículo' : 'Novo cadastro'}</span>
       </div>
       <div className="flex flex-col justify-between gap-4 border-b border-ink/10 pb-6 sm:flex-row sm:items-end">
@@ -152,8 +152,8 @@ export function AdminVehicleForm({ vehicle, saving, onSave, onClose }: Props) {
 
       {error && <p role="alert" className="border border-red-300 bg-red-50 px-5 py-4 text-[15px] text-red-800">{error}</p>}
       <div className="flex flex-wrap items-center justify-end gap-4 border-t border-ink/15 pt-7">
-        <button type="button" onClick={onClose} disabled={saving} className="inline-flex min-h-12 items-center gap-2 px-5 text-[15px] font-medium text-ink/70 hover:text-ink"><X size={17} /> Cancelar</button>
-        <button type="submit" disabled={saving} className="inline-flex min-h-13 items-center gap-3 bg-ink px-8 text-[15px] font-semibold text-gold-light transition hover:bg-[#343631] disabled:opacity-50"><Save size={18} />{saving ? 'Salvando...' : form.status === 'published' ? 'Salvar e publicar' : 'Salvar cadastro'}</button>
+        <button type="button" onClick={onClose} disabled={saving} className="rounded-xl inline-flex min-h-12 items-center gap-2 px-5 text-[15px] font-medium text-ink/70 hover:text-ink"><X size={17} /> Cancelar</button>
+        <button type="submit" disabled={saving} className="rounded-xl inline-flex min-h-13 items-center gap-3 bg-ink px-8 text-[15px] font-semibold text-gold-light transition hover:bg-[#343631] disabled:opacity-50"><Save size={18} />{saving ? 'Salvando...' : form.status === 'published' ? 'Salvar e publicar' : 'Salvar cadastro'}</button>
       </div>
     </form>
   );
