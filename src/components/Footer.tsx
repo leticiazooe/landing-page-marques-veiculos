@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowUpRight, Instagram } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Instagram, MessageCircle } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { contact, navLinks, whatsappUrl } from '../data/site';
 
@@ -12,9 +12,16 @@ export function Footer() {
             <p className="mb-8 text-[13px] font-bold uppercase tracking-[.28em] text-gold">Marques Veículos Garagem</p>
             <h2 id="contact-title" className="font-sans text-[clamp(40px,6.3vw,88px)] font-semibold leading-[1.08] tracking-[-.07em]">Seu próximo passo <em className="block font-display text-[1.21em] font-normal tracking-[-.04em] bg-[linear-gradient(110deg,#98702d_0%,#d6b779_29%,#aa813b_53%,#e5cc93_76%,#866025_100%)] bg-[length:200%_200%] bg-clip-text text-transparent">começa com um olá.</em></h2>
             <p className="mx-auto mt-7 max-w-[560px] text-[18px] leading-[1.8] text-ivory/65">Entre em contato para consultar os veículos disponíveis ou conversar sobre o que procura.</p>
-            <a href={whatsappUrl('Olá! Quero falar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group mt-10 inline-flex min-h-14 items-center justify-between gap-7 rounded-xl border border-[#c2a065]/60 bg-[linear-gradient(110deg,#785720,#b58a3d,#d3b273,#97712d,#6a4b19)] bg-[length:200%_200%] px-7 text-[14px] font-bold uppercase tracking-[.10em] text-[#21190d] shadow-[0_10px_30px_rgba(0,0,0,.2)] transition-[background-position,transform,box-shadow] duration-700 ease-in-out hover:scale-[.98] hover:bg-right hover:shadow-[0_14px_34px_rgba(0,0,0,.28)] motion-reduce:transform-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light sm:px-10">
-              Conversar pelo WhatsApp <ArrowUpRight aria-hidden="true" size={20} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            <div className="mt-10 flex flex-col items-center gap-3">
+              <p className="text-[12px] font-semibold uppercase tracking-[.2em] text-gold-light/85">Atendimento direto pelo WhatsApp</p>
+              <a href={whatsappUrl('Olá! Quero falar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group relative isolate inline-flex min-h-[64px] max-w-full items-center justify-center gap-3 overflow-hidden rounded-xl border border-[#d3b273]/70 bg-[linear-gradient(110deg,#785720,#b58a3d,#d3b273,#97712d,#6a4b19)] bg-[length:200%_200%] px-6 text-[13px] font-bold uppercase tracking-[.08em] text-[#21190d] shadow-[0_12px_36px_rgba(181,138,61,.25)] transition-[background-position,transform,box-shadow] duration-500 ease-in-out hover:-translate-y-1 hover:bg-right hover:shadow-[0_16px_48px_rgba(181,138,61,.4)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light motion-reduce:transform-none sm:gap-4 sm:px-10 sm:text-[14px]">
+                <span aria-hidden="true" className="pointer-events-none absolute -inset-y-8 -left-1/2 w-1/3 rotate-12 bg-white/15 blur-lg transition-transform duration-700 group-hover:translate-x-[440%] motion-reduce:transition-none" />
+                <MessageCircle aria-hidden="true" size={21} strokeWidth={1.9} className="relative shrink-0" />
+                <span className="relative">Conversar pelo WhatsApp</span>
+                <ArrowUpRight aria-hidden="true" size={19} className="relative shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <span className="text-[12px] text-ivory/55">Fale diretamente com a equipe</span>
+            </div>
           </Reveal>
         </div>
       </section>
