@@ -68,5 +68,9 @@ export async function getPublicVehicles(): Promise<Vehicle[]> {
     .eq('status', 'published')
     .order('created_at', { ascending: false });
   if (error) throw error;
-  return ((data ?? []) as VehicleRow[]).map(rowToVehicle);
+  const published = ((data ?? []) as VehicleRow[]).map(rowToVehicle);
+  // Preserve the original demonstration cards without changing the real Supabase inventory.
+  // Demonstration vehicles are explicitly labeled as illustrative in the UI.
+  const realIds = new Set(published.map(vehicle => vehicle.id));
+  return [...published, ...vehicles.filter(vehicle => !realIds.has(vehicle.id))];
 }
