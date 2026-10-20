@@ -30,7 +30,7 @@ export function Story() {
           <Reveal>
             <p className="mb-7 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[.21em] text-gold"><span aria-hidden="true" className="h-px w-8 bg-gold" /> A garagem</p>
             <h2 id="story-title" className="max-w-[690px] font-sans text-[clamp(41px,5.3vw,76px)] font-semibold leading-[1.09] tracking-[-.066em] text-ivory">
-              Seu próximo carro começa <em className="block font-display text-[1.2em] font-normal tracking-[-.042em] text-gold-light">com uma conversa.</em>
+              Seu próximo carro começa <em className="block font-display text-[1.2em] font-normal tracking-[-.042em] bg-[linear-gradient(110deg,#98702d_0%,#d6b779_29%,#aa813b_53%,#e5cc93_76%,#866025_100%)] bg-[length:200%_200%] bg-clip-text text-transparent">com uma conversa.</em>
             </h2>
             <p className="mt-8 max-w-[460px] text-[18px] leading-[1.9] text-ivory/65">
               Conte à equipe que tipo de carro você procura. Pergunte sobre os modelos disponíveis e tire suas dúvidas antes de visitar a garagem.

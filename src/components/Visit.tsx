@@ -9,7 +9,7 @@ export function Visit() {
         <Reveal>
           <p className="mb-6 inline-flex items-center gap-3 text-[13px] font-bold uppercase tracking-[.21em] text-gold-dark"><MapPin size={16} aria-hidden="true" /> Onde estamos</p>
           <h2 id="visit-title" className="max-w-[560px] font-sans text-[clamp(40px,5vw,70px)] font-semibold leading-[1.1] tracking-[-.07em]">
-            Nossa garagem fica <em className="block font-display text-[1.14em] font-medium tracking-[-.035em] text-gold-dark">em Ibitinga.</em>
+            Nossa garagem fica <em className="block font-display text-[1.14em] font-medium tracking-[-.035em] bg-[linear-gradient(110deg,#76531e_0%,#ae8847_30%,#75511e_55%,#b49559_78%,#69491c_100%)] bg-[length:200%_200%] bg-clip-text text-transparent">em Ibitinga.</em>
           </h2>
           <p className="mt-7 max-w-[450px] text-[18px] leading-[1.9] text-ink/70">Entre em contato, confira os horários e veja como chegar até a Marques Veículos.</p>
           <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className="group mt-8 inline-flex min-h-14 items-center justify-between gap-6 bg-ink px-6 text-[14px] font-bold uppercase tracking-[.1em] text-ivory transition-colors hover:bg-gold-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark">
