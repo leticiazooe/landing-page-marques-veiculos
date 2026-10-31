@@ -54,7 +54,7 @@ export function Visit() {
             <iframe title="Mapa da Marques Veículos em Ibitinga" src={contact.mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen className="block h-[320px] w-full border-0 sm:h-[420px] lg:h-[430px]" />
           </div>
           <div className="overflow-hidden rounded-2xl border border-ink/10 bg-night text-ivory">
-            <img src="/images/fachada-marques.webp" alt="Fotografia real da garagem Marques Veículos, com carros estacionados atrás do alambrado na fachada." width={1369} height={608} loading="lazy" className="aspect-[16/8] w-full object-cover object-center" />
+            <img src="/images/fachada-marques.jpg" alt="Fotografia real da garagem Marques Veículos, com carros estacionados atrás do alambrado na fachada." width={1369} height={608} loading="lazy" className="aspect-[16/8] w-full object-cover object-center" />
             <div className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
               <div>
                 <p className="text-[17px] font-bold">Marques Veículos Garagem</p>
