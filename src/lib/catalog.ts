@@ -1,4 +1,4 @@
-import { vehicles, type Vehicle, type VehicleCategory } from '../data/site';
+import { type Vehicle, type VehicleCategory } from '../data/site';
 import { catalogConfigured, supabase } from './supabase';
 
 export type VehicleStatus = 'draft' | 'published' | 'sold';
@@ -61,16 +61,12 @@ export function rowToVehicle(row: VehicleRow): Vehicle {
 
 /** Only published records leave the database. RLS enforces this for visitors. */
 export async function getPublicVehicles(): Promise<Vehicle[]> {
-  if (!catalogConfigured || !supabase) return vehicles;
+  if (!catalogConfigured || !supabase) return [];
   const { data, error } = await supabase
     .from('marques_vehicles')
     .select('*')
     .eq('status', 'published')
     .order('created_at', { ascending: false });
   if (error) throw error;
-  const published = ((data ?? []) as VehicleRow[]).map(rowToVehicle);
-  // Preserve the original demonstration cards without changing the real Supabase inventory.
-  // Demonstration vehicles are explicitly labeled as illustrative in the UI.
-  const realIds = new Set(published.map(vehicle => vehicle.id));
-  return [...published, ...vehicles.filter(vehicle => !realIds.has(vehicle.id))];
+  return ((data ?? []) as VehicleRow[]).map(rowToVehicle);
 }
