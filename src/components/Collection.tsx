@@ -76,33 +76,33 @@ export function Collection({ onDetails, vehicles, loading = false, error }: { on
     .filter(item => filter === 'todos' || item.category === filter)
     .sort((a, b) => compareVehicles(a, b, sortOrder));
   return (
-    <section id="veiculos" aria-labelledby="catalog-title" className="bg-cream py-20 text-ink sm:py-24 lg:py-32">
+    <section id="veiculos" aria-labelledby="catalog-title" className="marques-vehicles-backdrop py-20 text-ivory sm:py-24 lg:py-32">
       <div className="mx-auto w-[min(1400px,calc(100%-48px))] lg:w-[min(1400px,calc(100%-112px))]">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end lg:gap-16">
           <Reveal className="max-w-[770px]">
-            <p className="mb-5 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[.19em] text-gold-dark"><CarFront size={18} /> Vitrine de veículos</p>
-            <h2 id="catalog-title" className="font-sans text-[clamp(38px,5vw,70px)] font-semibold leading-[1.12] tracking-[-.065em]">Conheça os <span className="font-display text-[1.14em] font-normal italic tracking-[-.04em] text-gold-dark">modelos.</span></h2>
+            <p className="mb-5 flex items-center gap-3 text-[13px] font-bold uppercase tracking-[.19em] text-gold-light"><CarFront size={18} /> Vitrine de veículos</p>
+            <h2 id="catalog-title" className="font-sans text-[clamp(38px,5vw,70px)] font-semibold leading-[1.12] tracking-[-.065em]">Conheça os <span className="font-display text-[1.14em] font-normal italic tracking-[-.04em] text-gold-light">modelos.</span></h2>
           </Reveal>
-          <Reveal className="max-w-[355px]" delay={.1}><p className="text-[18px] leading-[1.8] text-ink/70">Veja os detalhes de cada modelo e tire suas dúvidas pelo WhatsApp.</p></Reveal>
+          <Reveal className="max-w-[355px]" delay={.1}><p className="text-[18px] leading-[1.8] text-ivory/80">Veja os detalhes de cada modelo e tire suas dúvidas pelo WhatsApp.</p></Reveal>
         </div>
-        <div className="mb-7 mt-12 flex flex-col gap-5 border-t border-ink/15 pt-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mb-7 mt-12 flex flex-col gap-5 border-t border-white/25 pt-5 lg:flex-row lg:items-center lg:justify-between">
           <div role="group" aria-label="Filtrar veículos por categoria" className="flex flex-wrap gap-x-6 gap-y-1">
-            {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[15px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ink' : 'text-ink/50 hover:text-ink'}`}>{item.label}{filter === item.value && <motion.span layoutId="vehicle-filter-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
+            {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[15px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ivory' : 'text-ivory/60 hover:text-ivory'}`}>{item.label}{filter === item.value && <motion.span layoutId="vehicle-filter-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
           </div>
           <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 sm:justify-end">
-            <p aria-live="polite" className="text-[14px] text-ink/55">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} na vitrine</p>
+            <p aria-live="polite" className="text-[14px] text-ivory/70">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} na vitrine</p>
             <div className="flex items-center gap-3">
-              <label htmlFor="vehicle-sort" className="shrink-0 text-[14px] font-medium text-ink/65">Ordenar por</label>
+              <label htmlFor="vehicle-sort" className="shrink-0 text-[14px] font-medium text-ivory/75">Ordenar por</label>
               <div className="relative">
                 <select
                   id="vehicle-sort"
                   value={sortOrder}
                   onChange={event => setSortOrder(event.target.value as SortOrder)}
-                  className="min-h-11 min-w-[176px] appearance-none border border-ink/20 bg-transparent py-2 pl-3 pr-9 text-[15px] font-semibold text-ink transition-colors hover:border-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark sm:min-w-[192px]"
+                  className="min-h-11 min-w-[176px] appearance-none border border-white/30 bg-night/75 py-2 pl-3 pr-9 text-[15px] font-semibold text-ivory transition-colors hover:border-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark sm:min-w-[192px]"
                 >
-                  {sortOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+                  {sortOptions.map(option => <option key={option.value} value={option.value} className="bg-night text-ivory">{option.label}</option>)}
                 </select>
-                <ChevronDown aria-hidden="true" size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gold-dark" />
+                <ChevronDown aria-hidden="true" size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gold-light" />
               </div>
             </div>
           </div>
