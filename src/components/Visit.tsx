@@ -43,6 +43,24 @@ export function Visit() {
               </div>
             </div>
           </div>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-ink/15 bg-white shadow-[0_18px_48px_rgba(11,13,13,.08)]">
+            <iframe
+              title="Mapa da localização da Marques Veículos em Ibitinga"
+              src={contact.mapEmbedUrl}
+              className="block h-[300px] w-full border-0 sm:h-[380px]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-ink/10 px-5 py-4 sm:px-6">
+              <span className="inline-flex items-center gap-2 text-[14px] font-semibold text-ink/75">
+                <MapPin size={17} className="text-gold-dark" aria-hidden="true" /> Marques Veículos · Ibitinga, SP
+              </span>
+              <a href={contact.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl text-[14px] font-bold text-gold-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-gold-dark">
+                Abrir no Google Maps <ArrowUpRight aria-hidden="true" size={16} />
+              </a>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
