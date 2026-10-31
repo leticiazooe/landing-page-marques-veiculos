@@ -59,6 +59,5 @@ export const formatPrice = (price: number) =>
 export const navLinks = [
   { label: 'Início', href: '/#inicio' },
   { label: 'Veículos', href: '/#veiculos' },
-  { label: 'A garagem', href: '/#garagem' },
   { label: 'Localização', href: '/#localizacao' },
 ] as const;

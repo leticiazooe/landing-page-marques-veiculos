@@ -25,7 +25,7 @@ npm run preview    # serve o build localmente
 
 ## Estrutura
 
-- `src/components/`: Header, Hero, Collection, VehicleDetails, Story, Visit, Footer, Reveal
+- `src/components/`: Header, Hero, Collection, VehicleDetails, Visit, Footer, Reveal
 - `src/data/site.ts`: telefone, endereço, horários, links do WhatsApp e três veículos demonstrativos
 - `src/index.css`: import do Tailwind e tokens semânticos da marca
 - `public/images/`: capa fotográfica, logotipo e preview social
