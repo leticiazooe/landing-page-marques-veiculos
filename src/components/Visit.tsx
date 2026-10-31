@@ -6,7 +6,7 @@ const whatsapp = whatsappUrl('Olá! Gostaria de falar com a Marques Veículos.')
 
 export function Visit() {
   return (
-    <section id="localizacao" aria-labelledby="visit-title" className="scroll-mt-24 bg-cream py-14 text-ink sm:py-16 lg:py-10 xl:py-12">
+    <section id="localizacao" aria-labelledby="visit-title" className="scroll-mt-24 bg-cream py-14 text-ink sm:py-16 lg:flex lg:min-h-[calc(100svh-64px)] lg:items-center lg:py-12 xl:py-14">
       <div className="mx-auto grid w-[min(1400px,calc(100%-40px))] gap-7 sm:w-[min(1400px,calc(100%-64px))] lg:w-[min(1400px,calc(100%-112px))] lg:grid-cols-[.94fr_1.06fr] lg:items-start lg:gap-8 xl:gap-10">
         <Reveal>
           <p className="mb-3 text-[12px] font-bold uppercase tracking-[.19em] text-gold-dark">Localização</p>
@@ -61,7 +61,7 @@ export function Visit() {
 
         <Reveal delay={.1} className="space-y-3">
           <div className="overflow-hidden rounded-xl border border-ink/10 bg-night shadow-[0_12px_32px_rgba(11,13,13,.10)]">
-            <iframe title="Mapa da Marques Veículos em Ibitinga" src={contact.mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen className="block h-[250px] w-full border-0 sm:h-[290px] lg:h-[290px]" />
+            <iframe title="Mapa da Marques Veículos em Ibitinga" src={contact.mapEmbedUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen className="block h-[250px] w-full border-0 sm:h-[290px] lg:h-[315px]" />
           </div>
           <div className="relative overflow-hidden rounded-xl border border-ink/10 bg-night text-ivory shadow-[0_12px_32px_rgba(11,13,13,.10)]">
             <img
@@ -70,7 +70,7 @@ export function Visit() {
               width={1369}
               height={608}
               loading="lazy"
-              className="h-[230px] w-full object-cover object-center sm:h-[240px] lg:h-[220px]"
+              className="h-[230px] w-full object-cover object-center sm:h-[240px] lg:h-[250px]"
             />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-3 bg-gradient-to-t from-night/95 via-night/75 to-transparent px-4 pb-4 pt-12 sm:px-5">
               <div>
