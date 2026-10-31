@@ -35,8 +35,8 @@ export function Story() {
             <p className="mt-8 max-w-[460px] text-[18px] leading-[1.9] text-ivory/65">
               Conte à equipe que tipo de carro você procura. Pergunte sobre os modelos disponíveis e tire suas dúvidas antes de visitar a garagem.
             </p>
-            <a href={whatsappUrl('Olá! Gostaria de conversar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="rounded-xl group mt-9 inline-flex min-h-12 items-center gap-3 border-b border-gold/60 pb-1 text-[13px] font-bold uppercase tracking-[.13em] text-gold-light transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
-              Iniciar conversa <ArrowUpRight aria-hidden="true" size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <a href={whatsappUrl('Olá! Gostaria de conversar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group mt-9 inline-flex min-h-14 max-w-full items-center justify-center gap-4 rounded-xl border border-gold/65 bg-gold/[.07] px-6 py-3 text-[13px] font-bold uppercase tracking-[.11em] text-gold-light shadow-[0_8px_24px_rgba(0,0,0,.16)] transition-[background-color,border-color,color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-gold-light hover:bg-gold hover:text-night hover:shadow-[0_12px_30px_rgba(213,177,107,.16)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold motion-reduce:transform-none">
+              Iniciar conversa <ArrowUpRight aria-hidden="true" size={18} className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none" />
             </a>
           </Reveal>
         </div>
