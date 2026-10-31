@@ -6,8 +6,8 @@ export const contact = {
   address: 'R. Valentina Minzone Palanque, Ibitinga, SP, 14940-000',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Rua%20Valentina%20Minzone%20Palanque%2C%20Ibitinga%2C%20SP',
   schedule: [
-    { days: 'Segunda a sexta', hours: '08:00 – 17:00' },
-    { days: 'Sábado', hours: '08:00 – 13:00' },
+    { days: 'Segunda a sexta', hours: '08:00 – 18:00' },
+    { days: 'Sábado', hours: '08:00 – 12:00' },
     { days: 'Domingo', hours: 'Fechado' },
   ],
 } as const;
