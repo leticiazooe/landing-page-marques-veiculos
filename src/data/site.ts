@@ -43,33 +43,8 @@ export type Vehicle = {
   status?: 'draft' | 'published' | 'sold';
 };
 
-/** Conteúdo 100% DEMONSTRATIVO: não é estoque ou anúncio comercial real. */
-export const vehicles: Vehicle[] = [
-  {
-    id: 'honda-civic', make: 'Honda', model: 'Civic', trim: 'Touring 1.5 Turbo', category: 'sedan',
-    year: '2021/2021', km: '46.000 km', transmission: 'Automático', transmissionDetail: 'CVT',
-    fuel: 'Gasolina', engine: '1.5 Turbo', doors: '4 portas', color: 'Preto', drive: 'Dianteira',
-    price: 139900, image: '/images/honda-civic.webp',
-    description: 'Um sedã com câmbio automático, motor turbo e equipamentos voltados ao conforto no dia a dia. Os dados desta ficha são exemplos.',
-    illustrative: true, equipment: ['Ar-condicionado digital', 'Bancos em couro', 'Central multimídia', 'Câmera de ré', 'Controle de estabilidade', 'Piloto automático'],
-  },
-  {
-    id: 'volvo-xc60', make: 'Volvo', model: 'XC60', trim: 'T5 Momentum 2.0', category: 'suv',
-    year: '2020/2020', km: '56.000 km', transmission: 'Automático', transmissionDetail: '8 marchas',
-    fuel: 'Gasolina', engine: '2.0 Turbo', doors: '4 portas', color: 'Preto', drive: 'Sob consulta',
-    price: 189900, image: '/images/volvo-xc60.webp',
-    description: 'Um SUV para quem procura espaço, conforto e câmbio automático. Ano, versão, quilometragem e equipamentos são dados de exemplo.',
-    illustrative: true, equipment: ['Bancos em couro', 'Ar-condicionado digital', 'Sensores de estacionamento', 'Central multimídia', 'Assistente de permanência em faixa', 'Controle de estabilidade'],
-  },
-  {
-    id: 'pluto-concept', make: 'Pluto', model: 'Concept', trim: '1.0 Turbo AT', category: 'hatch',
-    year: '2023/2024', km: '21.500 km', transmission: 'Automático', transmissionDetail: '6 marchas (ilustrativo)',
-    fuel: 'Flex (ilustrativo)', engine: '1.0 Turbo (ilustrativo)', doors: '4 portas', color: 'Preto', drive: 'Dianteira (ilustrativo)',
-    price: 92900, image: '/images/pluto.webp', conceptual: true,
-    description: 'O Pluto é um conceito visual usado para apresentar a experiência do catálogo. Não corresponde a um carro à venda.',
-    illustrative: true, equipment: ['Ar-condicionado', 'Central multimídia', 'Câmera de ré', 'Rodas de liga leve', 'Sensor de estacionamento', 'Controle de estabilidade'],
-  },
-];
+/** O catálogo público é alimentado exclusivamente pelo inventário do Supabase. */
+export const vehicles: Vehicle[] = [];
 
 export const paymentMethods = [
   { title: 'PIX ou transferência', description: 'Consulte a garagem sobre pagamento à vista e instruções para transferência.' },
