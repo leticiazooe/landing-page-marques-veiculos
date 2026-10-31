@@ -8,7 +8,7 @@ import { Story } from './components/Story';
 import { BrandStrip } from './components/BrandStrip';
 import { Visit } from './components/Visit';
 import { Footer } from './components/Footer';
-import { vehicles, type Vehicle } from './data/site';
+import { type Vehicle } from './data/site';
 import { getPublicVehicles } from './lib/catalog';
 import { catalogConfigured } from './lib/supabase';
 import { AdminPanel } from './components/AdminPanel';
@@ -18,7 +18,7 @@ function readVehicle(): string | null { return new URLSearchParams(window.locati
 export default function App() {
   const [id, setId] = useState<string | null>(readVehicle);
   const isAdmin = window.location.pathname.replace(/\/$/, '') === '/admin';
-  const [catalog, setCatalog] = useState<Vehicle[]>(catalogConfigured ? [] : vehicles);
+  const [catalog, setCatalog] = useState<Vehicle[]>([]);
   const [catalogLoading, setCatalogLoading] = useState(catalogConfigured && !isAdmin);
   const [catalogError, setCatalogError] = useState('');
 
