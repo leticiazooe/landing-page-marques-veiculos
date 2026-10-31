@@ -4,7 +4,8 @@ export const contact = {
   phoneDisplay: '(16) 99641-4542',
   phoneE164: '+5516996414542',
   address: 'R. Valentina Minzone Palanque, Ibitinga, SP, 14940-000',
-  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Rua%20Valentina%20Minzone%20Palanque%2C%20Ibitinga%2C%20SP',
+  mapsUrl: 'https://maps.app.goo.gl/C5MeAGeo2HLYkg2dA',
+  mapEmbedUrl: 'https://www.google.com/maps?q=Marques%20Ve%C3%ADculos%2C%20Rua%20Valentina%20Minzone%20Palanque%2C%20Ibitinga%2C%20SP%2C%20Brasil&z=16&output=embed',
   schedule: [
     { days: 'Segunda a sexta', hours: '08:00 – 18:00' },
     { days: 'Sábado', hours: '08:00 – 12:00' },
