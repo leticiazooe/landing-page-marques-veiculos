@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowUpRight, CalendarDays, Check, ChevronRight, CreditCard, Fuel, Gauge, GitBranch, Landmark, MapPin, Settings2, ShieldCheck, Tag, Wallet } from 'lucide-react';
 import { formatPrice, paymentMethods, type Vehicle, whatsappUrl } from '../data/site';
@@ -18,7 +17,6 @@ const specs = (v: Vehicle) => [
 
 export function VehicleDetails({ vehicle, onBack }: { vehicle: Vehicle; onBack: () => void }) {
   const reduced = useReducedMotion();
-  useEffect(() => { document.title = `${vehicle.make} ${vehicle.model} | Marques Veículos`; return () => { document.title = 'Marques Veículos — Garagem em Ibitinga'; }; }, [vehicle]);
   const chat = whatsappUrl(vehicle.illustrative
     ? `Olá! Vi a ficha ilustrativa do ${vehicle.make} ${vehicle.model} ${vehicle.trim} (${vehicle.year}) no site da Marques Veículos. Gostaria de confirmar a disponibilidade e o preço.`
     : `Olá! Tenho interesse no ${vehicle.make} ${vehicle.model} ${vehicle.trim} (${vehicle.year}) anunciado no site da Marques Veículos. Gostaria de confirmar a disponibilidade e as condições.`);
