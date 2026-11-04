@@ -24,7 +24,7 @@ export function VehicleDetails({ vehicle, onBack }: { vehicle: Vehicle; onBack: 
     ? paymentMethods
     : paymentMethods.filter(p => vehicle.paymentMethods?.includes(p.title));
   return (
-    <article className="min-h-screen bg-cream pb-20 pt-[126px] text-ink lg:pt-[156px]">
+    <article data-vehicle-id={vehicle.id} className="min-h-screen bg-cream pb-20 pt-[126px] text-ink lg:pt-[156px]">
       <div className="mx-auto w-[min(1400px,calc(100%-48px))] lg:w-[min(1400px,calc(100%-112px))]">
         <button onClick={onBack} className="rounded-xl mb-7 inline-flex min-h-11 items-center gap-2 text-[16px] font-semibold text-ink/65 hover:text-gold-dark focus-visible:outline-2 focus-visible:outline-gold-dark" type="button"><ArrowLeft size={18} /> Voltar aos veículos</button>
         <div className="grid gap-9 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,.9fr)] lg:gap-12">
