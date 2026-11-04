@@ -23,3 +23,5 @@ jobs:
         run: npm run typecheck
       - name: Build
         run: npm run build
+      - name: Validar SEO gerado
+        run: npm run check:seo
