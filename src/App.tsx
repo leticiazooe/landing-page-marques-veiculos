@@ -46,7 +46,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (!next) requestAnimationFrame(() => document.getElementById('veiculos')?.scrollIntoView({ behavior: 'instant' }));
   }, []);
-  useEffect(() => { if (!selected) document.title = 'Marques Veículos — Garagem em Ibitinga'; }, [selected]);
+  useEffect(() => { if (!selected) document.title = 'Marques Veículos | Garagem de Carros em Ibitinga, SP'; }, [selected]);
   if (isAdmin) return <AdminPanel />;
   return (
     <MotionConfig reducedMotion="user">
