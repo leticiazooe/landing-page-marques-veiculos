@@ -9,6 +9,8 @@ export function Visit() {
     <section id="localizacao" aria-labelledby="visit-title" className="relative isolate flex min-h-[min(900px,100svh)] scroll-mt-20 items-center overflow-hidden bg-night py-20 text-ivory sm:py-24 lg:py-28">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 bg-[url('/images/location-premium-marques.jpg')] bg-cover bg-[61%_center] lg:bg-center" />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,8,8,.68)_0%,rgba(8,8,8,.24)_52%,rgba(8,8,8,.05)_100%)] max-lg:bg-[linear-gradient(90deg,rgba(8,8,8,.75),rgba(8,8,8,.35))]" />
+      {/* Transição suave da vitrine escura para a fotografia da localização, sem criar uma faixa adicional. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[clamp(160px,23vw,340px)] bg-gradient-to-b from-night via-night/75 to-transparent" />
       <div className="relative mx-auto w-[min(1440px,calc(100%-32px))] sm:w-[min(1440px,calc(100%-72px))] lg:w-[min(1440px,calc(100%-100px))]">
         <Reveal className="max-w-[570px]">
           <div className="rounded-[28px] border border-gold/45 bg-[#171210]/85 px-6 py-8 shadow-[0_24px_95px_rgba(0,0,0,.35)] backdrop-blur-xl sm:px-10 sm:py-10 lg:px-12 lg:py-11">
