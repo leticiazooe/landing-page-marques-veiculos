@@ -32,6 +32,11 @@ export function Visit() {
       {/* Recorte diagonal tipo /, sutil e sem linhas rígidas. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-[64%] bg-[linear-gradient(90deg,rgba(0,0,0,.54),rgba(0,0,0,.18),transparent)] [clip-path:polygon(0_0,85%_0,58%_100%,0_100%)] max-lg:w-[82%] max-sm:w-full max-sm:opacity-55" />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[clamp(145px,19vw,265px)] bg-gradient-to-b from-night via-night/65 to-transparent" />
+      {/* A fotografia desaparece progressivamente no preto da seção de contato, sem faixa ou recorte brusco. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[clamp(200px,27vw,340px)] bg-[linear-gradient(180deg,rgba(3,3,3,0)_0%,rgba(3,3,3,.24)_32%,rgba(3,3,3,.72)_70%,#030303_100%)]"
+      />
       {!reducedMotion && (
         <>
           <motion.div
