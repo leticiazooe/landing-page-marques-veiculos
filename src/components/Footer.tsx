@@ -26,7 +26,7 @@ export function Footer() {
           </Reveal>
         </div>
       </section>
-      <footer className="relative shrink-0 border-t border-white/10 px-6 py-5 text-ivory sm:py-6">
+      <footer className="relative shrink-0 border-t border-[#8d7348]/35 bg-[#201b17] px-6 py-5 text-ivory shadow-[0_-16px_40px_rgba(0,0,0,.15)] sm:py-6">
         <div className="mx-auto w-full max-w-[1400px]">
           <div className="flex flex-col justify-between gap-4 border-b border-white/10 pb-4 sm:flex-row sm:items-center lg:gap-7">
             <a href="/#inicio" aria-label="Marques Veículos, início" className="rounded-xl w-[150px] shrink-0 focus-visible:outline-2 focus-visible:outline-gold sm:w-[170px]"><img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} loading="lazy" /></a>
