@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, Clock3, MapPin, Phone, MessageCircle } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { contact, whatsappUrl } from '../data/site';
@@ -5,12 +7,42 @@ import { contact, whatsappUrl } from '../data/site';
 const whatsapp = whatsappUrl('Olá! Gostaria de falar com a Marques Veículos.');
 
 export function Visit() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'start start'],
+  });
+  const photoScale = useTransform(scrollYProgress, [0, 1], [1.075, 1]);
+  const photoY = useTransform(scrollYProgress, [0, 1], [-18, 0]);
+  const veilOpacity = useTransform(scrollYProgress, [0, 0.45, 1], [0.68, 0.34, 0]);
+  const highlightOpacity = useTransform(scrollYProgress, [0.12, 0.48, 0.85], [0, 0.55, 0]);
+  const highlightY = useTransform(scrollYProgress, [0, 1], [-28, 100]);
+
   return (
-    <section id="localizacao" aria-labelledby="visit-title" className="relative isolate flex min-h-[min(900px,100svh)] scroll-mt-20 items-center overflow-hidden bg-night py-20 text-ivory sm:py-24 lg:py-28">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 bg-[url('/images/location-premium-marques.jpg')] bg-cover bg-[61%_center] lg:bg-center" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,8,8,.68)_0%,rgba(8,8,8,.24)_52%,rgba(8,8,8,.05)_100%)] max-lg:bg-[linear-gradient(90deg,rgba(8,8,8,.75),rgba(8,8,8,.35))]" />
-      {/* Transição suave da vitrine escura para a fotografia da localização, sem criar uma faixa adicional. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[clamp(160px,23vw,340px)] bg-gradient-to-b from-night via-night/75 to-transparent" />
+    <section ref={sectionRef} id="localizacao" aria-labelledby="visit-title" className="relative isolate flex min-h-[min(900px,100svh)] scroll-mt-20 items-center overflow-hidden bg-night py-20 text-ivory sm:py-24 lg:py-28">
+      {/* Revelação cinematográfica vinculada ao scroll, sem alterar a altura da seção. */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-5 -z-20 bg-[url('/images/location-premium-marques.jpg')] bg-cover bg-[61%_center] lg:bg-center"
+        style={reducedMotion ? undefined : { scale: photoScale, y: photoY }}
+      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,8,8,.73)_0%,rgba(8,8,8,.26)_53%,rgba(8,8,8,.06)_100%)] max-lg:bg-[linear-gradient(90deg,rgba(8,8,8,.77),rgba(8,8,8,.35))]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[clamp(180px,24vw,350px)] bg-gradient-to-b from-night via-night/70 to-transparent" />
+      {!reducedMotion && (
+        <>
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0 bg-night"
+            style={{ opacity: veilOpacity }}
+          />
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-[8%] top-0 z-0 h-px bg-[linear-gradient(90deg,transparent,rgba(213,177,107,.7),transparent)] blur-[.5px]"
+            style={{ opacity: highlightOpacity, y: highlightY }}
+          />
+        </>
+      )}
       <div className="relative mx-auto w-[min(1440px,calc(100%-32px))] sm:w-[min(1440px,calc(100%-72px))] lg:w-[min(1440px,calc(100%-100px))]">
         <Reveal className="max-w-[570px]">
           <div className="rounded-[28px] border border-gold/45 bg-[#171210]/85 px-6 py-8 shadow-[0_24px_95px_rgba(0,0,0,.35)] backdrop-blur-xl sm:px-10 sm:py-10 lg:px-12 lg:py-11">
