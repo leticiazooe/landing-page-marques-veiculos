@@ -6,7 +6,7 @@
 export type ConversionKind = 'whatsapp_click' | 'map_click' | 'phone_click' | 'vehicle_detail_open';
 declare global {
   interface Window {
-    dataLayer?: Record<string, unknown>[];
+    dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
   }
 }
@@ -17,7 +17,7 @@ export function enableAnalytics(): void {
   if (!measurementId || typeof window === 'undefined') return;
   window.localStorage.setItem('marques_analytics_consent', 'granted');
   window.dataLayer ??= [];
-  if (!window.gtag) window.gtag = (...args: unknown[]) => { window.dataLayer?.push({ event: 'gtag', args }); };
+  if (!window.gtag) window.gtag = (...args: unknown[]) => { window.dataLayer?.push(args); };
   window.gtag('js', new Date());
   window.gtag('config', measurementId, { anonymize_ip: true });
   if (!document.querySelector('script[data-marques-ga]')) {
