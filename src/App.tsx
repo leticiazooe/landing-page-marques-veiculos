@@ -19,6 +19,7 @@ function readVehicle(): string | null { return new URLSearchParams(window.locati
 
 export default function App() {
   const [id, setId] = useState<string | null>(readVehicle);
+  const [pathname, setPathname] = useState(() => window.location.pathname);
   const isAdmin = window.location.pathname.replace(/\/$/, '') === '/admin';
   const [catalog, setCatalog] = useState<Vehicle[]>([]);
   const [catalogLoading, setCatalogLoading] = useState(catalogConfigured && !isAdmin);
@@ -34,11 +35,11 @@ export default function App() {
     return () => { active = false; };
   }, [isAdmin]);
 
-  const vehicleRouteRequested = window.location.pathname.startsWith('/veiculos/') || Boolean(id);
+  const vehicleRouteRequested = pathname.startsWith('/veiculos/') || Boolean(id);
   // Mantém links legados ?veiculo=id, mas usa páginas públicas legíveis e indexáveis.
-  const selected = catalog.find(v => v.id === id || vehiclePath(v) === window.location.pathname);
+  const selected = catalog.find(v => v.id === id || vehiclePath(v) === pathname);
   useEffect(() => {
-    const onPop = () => setId(readVehicle());
+    const onPop = () => { setId(readVehicle()); setPathname(window.location.pathname); };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
@@ -58,12 +59,15 @@ export default function App() {
     }
     window.history.pushState({}, '', url);
     setId(next);
+    setPathname(url.pathname);
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (!next) requestAnimationFrame(() => document.getElementById('veiculos')?.scrollIntoView({ behavior: 'instant' }));
   }, [catalog]);
   useEffect(() => attachConversionTracking(), []);
   useEffect(() => { if (analyticsConsent() === 'granted') enableAnalytics(); }, []);
   useEffect(() => {
+    // Preserva as metatags do HTML pré-renderizado até o catálogo resolver a ficha.
+    if (vehicleRouteRequested && catalogLoading && !selected) return;
     if (selected && readVehicle()) {
       window.history.replaceState({}, '', vehiclePath(selected));
     }
@@ -82,7 +86,7 @@ export default function App() {
     setMeta('meta[property="og:title"]', title);
     setMeta('meta[property="og:description"]', description);
     setMeta('meta[property="og:image"]', selected?.image ? new URL(selected.image, SITE_URL).href : SITE_URL + '/images/og-marques.webp');
-  }, [selected]);
+  }, [selected, vehicleRouteRequested, catalogLoading]);
 
   if (isAdmin) return <AdminPanel />;
   return (
