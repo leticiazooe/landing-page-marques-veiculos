@@ -4,19 +4,18 @@ import { contact, navLinks, whatsappUrl } from '../data/site';
 
 export function Footer() {
   return (
-    <>
-      <section id="contato" aria-labelledby="contact-title" className="relative overflow-hidden bg-night-soft px-6 py-24 text-ivory sm:py-32">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#030303]" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_48%_65%_at_50%_52%,rgba(115,89,57,.28)_0%,rgba(69,53,37,.14)_35%,rgba(9,8,7,.04)_70%,transparent_100%)]" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#030303_0%,transparent_26%,transparent_74%,#030303_100%)]" />
+    <div className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-[#030303] text-ivory">
+      {/* Uma única luz difusa para o contato e o rodapé; sem divisões ou cantos marcados. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_72%_70%_at_50%_43%,rgba(100,73,46,.22)_0%,rgba(52,38,27,.11)_36%,rgba(3,3,3,0)_78%)]" />
+      <section id="contato" aria-labelledby="contact-title" className="relative flex flex-1 items-center justify-center px-6 py-10 sm:py-12 lg:py-8">
         <div className="relative mx-auto max-w-[1050px] text-center">
           <Reveal>
-            <p className="mb-8 text-[13px] font-bold uppercase tracking-[.28em] text-gold">Marques Veículos Garagem</p>
-            <h2 id="contact-title" className="font-sans text-[clamp(40px,6.3vw,88px)] font-semibold leading-[1.08] tracking-[-.07em]">Seu próximo passo <em className="block font-display text-[1.21em] font-normal tracking-[-.04em] bg-[linear-gradient(110deg,#98702d_0%,#d6b779_29%,#aa813b_53%,#e5cc93_76%,#866025_100%)] bg-[length:200%_200%] bg-clip-text text-transparent">começa com um olá.</em></h2>
-            <p className="mx-auto mt-7 max-w-[560px] text-[18px] leading-[1.8] text-ivory/65">Entre em contato para consultar os veículos disponíveis ou conversar sobre o que procura.</p>
-            <div className="mt-10 flex flex-col items-center gap-3">
+            <p className="mb-5 text-[12px] font-bold uppercase tracking-[.28em] text-gold sm:mb-6">Marques Veículos Garagem</p>
+            <h2 id="contact-title" className="font-sans text-[clamp(38px,5.7vw,76px)] font-semibold leading-[1.08] tracking-[-.07em]">Seu próximo passo <em className="block font-display text-[1.21em] font-normal tracking-[-.04em] bg-[linear-gradient(110deg,#98702d_0%,#d6b779_29%,#aa813b_53%,#e5cc93_76%,#866025_100%)] bg-[length:200%_200%] bg-clip-text text-transparent">começa com um olá.</em></h2>
+            <p className="mx-auto mt-5 max-w-[560px] text-[16px] leading-[1.65] text-ivory/65 sm:text-[17px]">Entre em contato para consultar os veículos disponíveis ou conversar sobre o que procura.</p>
+            <div className="mt-7 flex flex-col items-center gap-2 sm:mt-8">
               <p className="text-[12px] font-semibold uppercase tracking-[.2em] text-gold-light/85">Atendimento direto pelo WhatsApp</p>
-              <a href={whatsappUrl('Olá! Quero falar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group relative isolate inline-flex min-h-[64px] max-w-full items-center justify-center gap-3 overflow-hidden rounded-xl border border-[#d3b273]/70 bg-[linear-gradient(110deg,#785720,#b58a3d,#d3b273,#97712d,#6a4b19)] bg-[length:200%_200%] px-6 text-[13px] font-bold uppercase tracking-[.08em] text-[#21190d] shadow-[0_12px_36px_rgba(181,138,61,.25)] transition-[background-position,transform,box-shadow] duration-500 ease-in-out hover:-translate-y-1 hover:bg-right hover:shadow-[0_16px_48px_rgba(181,138,61,.4)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light motion-reduce:transform-none sm:gap-4 sm:px-10 sm:text-[14px]">
+              <a href={whatsappUrl('Olá! Quero falar com a Marques Veículos sobre meu próximo carro.')} target="_blank" rel="noopener noreferrer" className="group relative isolate inline-flex min-h-[56px] max-w-full items-center justify-center gap-3 overflow-hidden rounded-xl border border-[#d3b273]/70 bg-[linear-gradient(110deg,#785720,#b58a3d,#d3b273,#97712d,#6a4b19)] bg-[length:200%_200%] px-6 text-[13px] font-bold uppercase tracking-[.08em] text-[#21190d] shadow-[0_12px_36px_rgba(181,138,61,.25)] transition-[background-position,transform,box-shadow] duration-500 ease-in-out hover:-translate-y-1 hover:bg-right hover:shadow-[0_16px_48px_rgba(181,138,61,.4)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light motion-reduce:transform-none sm:gap-4 sm:px-10 sm:text-[14px]">
                 <span aria-hidden="true" className="pointer-events-none absolute -inset-y-8 -left-1/2 w-1/3 rotate-12 bg-white/15 blur-lg transition-transform duration-700 group-hover:translate-x-[440%] motion-reduce:transition-none" />
                 <MessageCircle aria-hidden="true" size={21} strokeWidth={1.9} className="relative shrink-0" />
                 <span className="relative">Conversar pelo WhatsApp</span>
@@ -27,11 +26,11 @@ export function Footer() {
           </Reveal>
         </div>
       </section>
-      <footer className="border-t border-white/10 bg-night px-6 py-10 text-ivory sm:py-12">
+      <footer className="relative shrink-0 border-t border-white/10 px-6 py-5 text-ivory sm:py-6">
         <div className="mx-auto w-full max-w-[1400px]">
-          <div className="flex flex-col justify-between gap-7 border-b border-white/10 pb-10 lg:flex-row lg:items-center">
-            <a href="/#inicio" aria-label="Marques Veículos, início" className="rounded-xl w-[195px] focus-visible:outline-2 focus-visible:outline-gold"><img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} loading="lazy" /></a>
-            <nav aria-label="Links do rodapé" className="flex flex-wrap items-center gap-x-7 gap-y-3">
+          <div className="flex flex-col justify-between gap-4 border-b border-white/10 pb-4 sm:flex-row sm:items-center lg:gap-7">
+            <a href="/#inicio" aria-label="Marques Veículos, início" className="rounded-xl w-[150px] shrink-0 focus-visible:outline-2 focus-visible:outline-gold sm:w-[170px]"><img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} loading="lazy" /></a>
+            <nav aria-label="Links do rodapé" className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:gap-x-7">
               {navLinks.map(link => <a key={link.href} href={link.href} className="rounded-xl text-[14px] font-semibold text-ivory/65 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold">{link.label}</a>)}
               <a href="https://www.instagram.com/marquesveiculos_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Marques Veículos (abre em nova aba)" className="rounded-xl inline-flex items-center gap-2 text-[14px] font-semibold text-ivory/65 transition-colors hover:text-gold-light focus-visible:outline-2 focus-visible:outline-gold">
                 <Instagram aria-hidden="true" size={18} strokeWidth={1.8} /> Instagram
@@ -39,12 +38,12 @@ export function Footer() {
             </nav>
             <a href="/#inicio" aria-label="Voltar ao início da página" className="rounded-xl flex h-11 w-11 items-center justify-center border border-white/20 text-gold transition-colors hover:border-gold hover:bg-gold hover:text-night focus-visible:outline-2 focus-visible:outline-gold"><ArrowUp aria-hidden="true" size={19} /></a>
           </div>
-          <div className="flex flex-col justify-between gap-3 pt-7 text-[13px] leading-relaxed text-ivory/50 sm:flex-row">
+          <div className="flex flex-col justify-between gap-1 pt-3 text-[12px] leading-relaxed text-ivory/50 sm:flex-row sm:gap-3">
             <span>© {new Date().getFullYear()} {contact.company}. {contact.city}.</span>
             <span>Uma nova história começa na estrada.</span>
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
