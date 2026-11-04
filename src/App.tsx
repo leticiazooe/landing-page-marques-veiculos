@@ -34,6 +34,7 @@ export default function App() {
     return () => { active = false; };
   }, [isAdmin]);
 
+  const vehicleRouteRequested = window.location.pathname.startsWith('/veiculos/') || Boolean(id);
   // Mantém links legados ?veiculo=id, mas usa páginas públicas legíveis e indexáveis.
   const selected = catalog.find(v => v.id === id || vehiclePath(v) === window.location.pathname);
   useEffect(() => {
@@ -89,7 +90,15 @@ export default function App() {
       <div className="min-h-screen overflow-clip bg-night font-sans text-ivory selection:bg-gold selection:text-night">
         <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:p-4 focus:text-night">Ir para o conteúdo</a>
         <Header solid={Boolean(selected)} />
-        <main id="conteudo">{selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /> : <><Hero /><BrandStrip /><Collection vehicles={catalog} loading={catalogLoading} error={catalogError} onDetails={id => navigate(id)} /><Visit /></>}</main>
+        <main id="conteudo">
+          {selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} />
+            : vehicleRouteRequested ? (
+              <div className="flex min-h-[65svh] flex-col items-center justify-center gap-5 bg-cream px-6 pt-32 text-center text-ink">
+                <h1 className="text-3xl font-semibold">{catalogLoading ? 'Carregando detalhes do veículo...' : 'Veículo indisponível no momento'}</h1>
+                {!catalogLoading && <><p className="max-w-lg text-[16px] text-ink/65">{catalogError || 'Este veículo não está mais na vitrine. Consulte os modelos disponíveis.'}</p><a href="/#veiculos" className="rounded-xl bg-ink px-6 py-4 text-[14px] font-semibold text-gold-light">Ver veículos disponíveis</a></>}
+              </div>
+            ) : <><Hero /><BrandStrip /><Collection vehicles={catalog} loading={catalogLoading} error={catalogError} onDetails={id => navigate(id)} /><Visit /></>}
+        </main>
         <Footer />
         <AnalyticsConsent />
       </div>
