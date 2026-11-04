@@ -11,6 +11,8 @@ import { type Vehicle } from './data/site';
 import { getPublicVehicles } from './lib/catalog';
 import { catalogConfigured } from './lib/supabase';
 import { AdminPanel } from './components/AdminPanel';
+import { HOME_DESCRIPTION, HOME_TITLE, SITE_URL, vehicleDescription, vehiclePath, vehicleTitle } from './lib/vehicle-seo';
+import { attachConversionTracking, trackConversion } from './lib/analytics';
 
 function readVehicle(): string | null { return new URLSearchParams(window.location.search).get('veiculo'); }
 
@@ -31,7 +33,8 @@ export default function App() {
     return () => { active = false; };
   }, [isAdmin]);
 
-  const selected = catalog.find(v => v.id === id);
+  // Mantém links legados ?veiculo=id, mas usa páginas públicas legíveis e indexáveis.
+  const selected = catalog.find(v => v.id === id || vehiclePath(v) === window.location.pathname);
   useEffect(() => {
     const onPop = () => setId(readVehicle());
     window.addEventListener('popstate', onPop);
@@ -39,14 +42,45 @@ export default function App() {
   }, []);
   const navigate = useCallback((next: string | null) => {
     const url = new URL(window.location.href);
-    if (next) { url.searchParams.set('veiculo', next); url.hash = ''; }
-    else { url.searchParams.delete('veiculo'); url.hash = 'veiculos'; }
+    if (next) {
+      const vehicle = catalog.find(v => v.id === next);
+      if (!vehicle) return;
+      url.pathname = vehiclePath(vehicle);
+      url.searchParams.delete('veiculo');
+      url.hash = '';
+      trackConversion('vehicle_detail_open', 'catalog', next);
+    } else {
+      url.pathname = '/';
+      url.searchParams.delete('veiculo');
+      url.hash = 'veiculos';
+    }
     window.history.pushState({}, '', url);
     setId(next);
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (!next) requestAnimationFrame(() => document.getElementById('veiculos')?.scrollIntoView({ behavior: 'instant' }));
-  }, []);
-  useEffect(() => { if (!selected) document.title = 'Marques Veículos | Garagem de Carros em Ibitinga, SP'; }, [selected]);
+  }, [catalog]);
+  useEffect(() => attachConversionTracking(), []);
+  useEffect(() => {
+    if (selected && readVehicle()) {
+      window.history.replaceState({}, '', vehiclePath(selected));
+    }
+    const canonical = selected ? SITE_URL + vehiclePath(selected) : SITE_URL + '/';
+    const title = selected ? vehicleTitle(selected) : HOME_TITLE;
+    const description = selected ? vehicleDescription(selected) : HOME_DESCRIPTION;
+    document.title = title;
+    const setMeta = (selector: string, value: string) => {
+      const el = document.querySelector<HTMLMetaElement>(selector);
+      if (el) el.content = value;
+    };
+    const link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (link) link.href = canonical;
+    setMeta('meta[name="description"]', description);
+    setMeta('meta[property="og:url"]', canonical);
+    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[property="og:description"]', description);
+    setMeta('meta[property="og:image"]', selected?.image ? new URL(selected.image, SITE_URL).href : SITE_URL + '/images/og-marques.webp');
+  }, [selected]);
+
   if (isAdmin) return <AdminPanel />;
   return (
     <MotionConfig reducedMotion="user">
