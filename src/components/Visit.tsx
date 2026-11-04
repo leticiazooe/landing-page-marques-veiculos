@@ -48,7 +48,7 @@ export function Visit() {
           <div className="rounded-[28px] border border-gold/45 bg-[#171210]/85 px-6 py-8 shadow-[0_24px_95px_rgba(0,0,0,.35)] backdrop-blur-xl sm:px-10 sm:py-10 lg:px-12 lg:py-11">
             <p className="mb-5 flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[.27em] text-gold-light"><MapPin size={20} aria-hidden="true" /> Localização</p>
             <h2 id="visit-title" className="text-[clamp(36px,3.8vw,54px)] font-semibold leading-[1.07] tracking-[-.055em]">Venha nos fazer uma visita.</h2>
-            <p className="mt-4 text-[16px] leading-[1.65] text-ivory/85">Estamos em Ibitinga, SP. Confira os horários e venha conhecer nossa garagem.</p>
+            <p className="mt-4 text-[16px] leading-[1.65] text-ivory/85">Somos uma garagem de carros em Ibitinga, SP, com atendimento para quem procura veículos na cidade e região. Confira os horários, consulte os modelos disponíveis e venha conhecer nossa garagem.</p>
             <div className="mt-8 divide-y divide-gold/25">
               <div className="flex gap-4 pb-6">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gold/40 bg-gold/10 text-gold-light"><MapPin size={23} aria-hidden="true" /></span>
