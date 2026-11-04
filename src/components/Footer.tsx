@@ -6,15 +6,9 @@ export function Footer() {
   return (
     <>
       <section id="contato" aria-labelledby="contact-title" className="relative overflow-hidden bg-night-soft px-6 py-24 text-ivory sm:py-32">
-        <img
-          src="/images/background-contato-marques.png"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,7,.68)_0%,rgba(5,7,7,.62)_50%,rgba(5,7,7,.78)_100%)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#030303]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_48%_65%_at_50%_52%,rgba(115,89,57,.28)_0%,rgba(69,53,37,.14)_35%,rgba(9,8,7,.04)_70%,transparent_100%)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#030303_0%,transparent_26%,transparent_74%,#030303_100%)]" />
         <div className="relative mx-auto max-w-[1050px] text-center">
           <Reveal>
             <p className="mb-8 text-[13px] font-bold uppercase tracking-[.28em] text-gold">Marques Veículos Garagem</p>
