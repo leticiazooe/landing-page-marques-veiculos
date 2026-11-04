@@ -24,7 +24,7 @@ export function Visit() {
       {/* Revelação cinematográfica vinculada ao scroll, sem alterar a altura da seção. */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-5 -z-20 bg-[url('/images/location-premium-marques.jpg')] bg-cover bg-[61%_center] lg:bg-center"
+        className="pointer-events-none absolute -inset-5 -z-20 bg-[url('/images/imagem-div-localizacao.png')] bg-cover bg-[61%_center] lg:bg-center"
         style={reducedMotion ? undefined : { scale: photoScale, y: photoY }}
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,8,8,.73)_0%,rgba(8,8,8,.26)_53%,rgba(8,8,8,.06)_100%)] max-lg:bg-[linear-gradient(90deg,rgba(8,8,8,.77),rgba(8,8,8,.35))]" />
