@@ -12,7 +12,8 @@ import { getPublicVehicles } from './lib/catalog';
 import { catalogConfigured } from './lib/supabase';
 import { AdminPanel } from './components/AdminPanel';
 import { HOME_DESCRIPTION, HOME_TITLE, SITE_URL, vehicleDescription, vehiclePath, vehicleTitle } from './lib/vehicle-seo';
-import { attachConversionTracking, trackConversion } from './lib/analytics';
+import { analyticsConsent, attachConversionTracking, enableAnalytics, trackConversion } from './lib/analytics';
+import { AnalyticsConsent } from './components/AnalyticsConsent';
 
 function readVehicle(): string | null { return new URLSearchParams(window.location.search).get('veiculo'); }
 
@@ -60,6 +61,7 @@ export default function App() {
     if (!next) requestAnimationFrame(() => document.getElementById('veiculos')?.scrollIntoView({ behavior: 'instant' }));
   }, [catalog]);
   useEffect(() => attachConversionTracking(), []);
+  useEffect(() => { if (analyticsConsent() === 'granted') enableAnalytics(); }, []);
   useEffect(() => {
     if (selected && readVehicle()) {
       window.history.replaceState({}, '', vehiclePath(selected));
@@ -89,6 +91,7 @@ export default function App() {
         <Header solid={Boolean(selected)} />
         <main id="conteudo">{selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /> : <><Hero /><BrandStrip /><Collection vehicles={catalog} loading={catalogLoading} error={catalogError} onDetails={id => navigate(id)} /><Visit /></>}</main>
         <Footer />
+        <AnalyticsConsent />
       </div>
     </MotionConfig>
   );
