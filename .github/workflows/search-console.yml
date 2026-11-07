@@ -1,0 +1,25 @@
+name: Search Console - Enviar Sitemap e Inspecionar Home
+on:
+  workflow_dispatch:
+    inputs:
+      submit_sitemap:
+        description: 'Enviar novamente o sitemap ao Google Search Console?'
+        type: boolean
+        required: true
+        default: true
+permissions:
+  contents: read
+jobs:
+  search-console:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enviar sitemap e consultar estado de indexação da home
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SUBMIT_SITEMAP: ${{ inputs.submit_sitemap }}
+        run: node scripts/search-console.mjs
