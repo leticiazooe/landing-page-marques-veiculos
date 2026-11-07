@@ -1,0 +1,27 @@
+name: SEO - Saúde do domínio publicado
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/check-live-seo.mjs'
+      - '.github/workflows/seo-live.yml'
+      - 'src/components/Hero.tsx'
+      - 'index.html'
+      - 'public/robots.txt'
+      - 'scripts/generate-seo.mjs'
+  schedule:
+    - cron: '15 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  seo-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir home, robots e sitemap em produção
+        run: node scripts/check-live-seo.mjs
