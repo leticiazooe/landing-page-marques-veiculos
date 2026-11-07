@@ -12,5 +12,17 @@
       "source": "/veiculos/:slug",
       "destination": "/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/veiculos/toyta-corolla-cross-2026-64418c67-3352-4308-aaeb-b476c527a5cf",
+      "destination": "/veiculos/toyota-corolla-cross-2026-64418c67-3352-4308-aaeb-b476c527a5cf/",
+      "permanent": true
+    },
+    {
+      "source": "/veiculos/toyta-corolla-cross-2026-64418c67-3352-4308-aaeb-b476c527a5cf/",
+      "destination": "/veiculos/toyota-corolla-cross-2026-64418c67-3352-4308-aaeb-b476c527a5cf/",
+      "permanent": true
+    }
   ]
 }
