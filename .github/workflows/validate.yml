@@ -21,6 +21,10 @@ jobs:
         run: npm run check:assets
       - name: Conferir TypeScript
         run: npm run typecheck
+      - name: Validar sintaxe das ferramentas de SEO
+        run: |
+          node --check scripts/search-console.mjs
+          node --check scripts/check-live-seo.mjs
       - name: Build
         run: npm run build
       - name: Validar SEO gerado
