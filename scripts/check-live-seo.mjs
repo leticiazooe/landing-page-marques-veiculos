@@ -44,7 +44,7 @@ for (const { path, type } of checks) {
   }
 }
 // Confere URLs reais do sitemap, para detectar fichas publicadas com resposta incorreta.
-const vehicleUrls = Array.from(sitemapText.matchAll(/<loc>([^<]+)<\\/loc>/g), match => match[1])
+const vehicleUrls = Array.from(sitemapText.matchAll(/<loc>([^<]+)<[/]loc>/g), match => match[1])
   .filter(url => url.startsWith(site + '/veiculos/')).slice(0, 5);
 for (const url of vehicleUrls) {
   try {
