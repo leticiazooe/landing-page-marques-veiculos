@@ -7,6 +7,7 @@ const checks = [
   { path: '/', type: 'html' },
   { path: '/robots.txt', type: 'robots' },
   { path: '/sitemap.xml', type: 'sitemap' },
+  { path: '/google6e7f2b65fd335a06.html', type: 'verification' },
 ];
 let sitemapText = '';
 let failed = false;
@@ -30,6 +31,9 @@ for (const { path, type } of checks) {
     if (type === 'robots') {
       if (!body.includes('Sitemap: ' + site + '/sitemap.xml')) issues.push('Sitemap não referenciado');
       if (/^Disallow:\s*\/\s*$/im.test(body)) issues.push('robots bloqueia o site');
+    }
+    if (type === 'verification' && body.trim() !== 'google-site-verification: google6e7f2b65fd335a06.html') {
+      issues.push('arquivo HTML de verificação Google ausente ou conteúdo inesperado');
     }
     if (type === 'sitemap') {
       sitemapText = body;
