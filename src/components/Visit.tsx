@@ -3,6 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { ArrowUpRight, Clock3, MapPin, Phone, MessageCircle } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { contact, whatsappUrl } from '../data/site';
+import { optimizedImage } from '../lib/images';
 
 const whatsapp = whatsappUrl('Olá! Gostaria de falar com a Marques Veículos.');
 
@@ -24,9 +25,27 @@ export function Visit() {
       {/* Revelação cinematográfica vinculada ao scroll, sem alterar a altura da seção. */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-5 -z-20 bg-[url('/images/imagem-div-localizacao.png')] bg-cover bg-[68%_center] lg:bg-[76%_center]"
+        className="pointer-events-none absolute -inset-5 -z-20"
         style={reducedMotion ? undefined : { scale: photoScale, y: photoY }}
-      />
+      >
+        <picture className="block h-full w-full">
+          <source media="(max-width: 639px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 640, 70)} />
+          <source media="(max-width: 1199px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 1200, 70)} />
+          <img
+            src={optimizedImage('/images/imagem-div-localizacao.png', 1920, 70)}
+            alt=""
+            width={1920}
+            height={1080}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-[68%_center] lg:object-[76%_center]"
+            onError={event => {
+              event.currentTarget.closest('picture')?.querySelectorAll('source').forEach(source => source.remove());
+              event.currentTarget.src = '/images/imagem-div-localizacao.png';
+            }}
+          />
+        </picture>
+      </motion.div>
       {/* Escurecimento lateral com transição aberta para revelar a garagem à direita. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,4,4,.96)_0%,rgba(4,4,4,.87)_19%,rgba(4,4,4,.58)_38%,rgba(4,4,4,.14)_64%,transparent_85%)] max-lg:bg-[linear-gradient(90deg,rgba(4,4,4,.86)_0%,rgba(4,4,4,.52)_45%,rgba(4,4,4,.08)_100%)]" />
       {/* Recorte diagonal tipo /, sutil e sem linhas rígidas. */}
