@@ -73,6 +73,22 @@ GitHub Actions: https://github.com/leticiazooe/landing-page-marques-veiculos/act
 - A amostra 76 apresentou FCP **3,1s** e TBT **300ms**, enquanto as duas seguintes ficaram com FCP **1,2s**. Não interpretar uma nota isolada como regressão ou garantia de resultado.
 - A otimização de logotipo reduziu transferências, mas, como esperado, não garante nota máxima em cada teste.
 
+## Revisão de acessibilidade e insights — 19/11/2026
+
+Referência: capturas de PageSpeed mobile (acessibilidade 96, contraste, finalidade dos links, bloqueio de CSS estimado em 170 ms, reflow forçado, árvore de rede e imagens com economia estimada de 24 KiB).
+
+Auditoria Lighthouse específica: https://github.com/leticiazooe/landing-page-marques-veiculos/actions/runs/44565246723
+
+- **Acessibilidade mobile: 96 → 100** na auditoria automatizada. Foram corrigidos os três elementos de contraste detectados na vitrine: marca/ano em dourado escuro, versão e rótulo de valor. O tom `gold-dark` foi aprofundado mantendo a identidade visual. Os botões da vitrine receberam rótulos acessíveis específicos por marca/modelo/ano.
+- O item **"links idênticos têm a mesma finalidade"** apareceu como prática recomendada na captura, não como reprovação automática com pontuação. Os links das fichas e WhatsApp agora descrevem de forma única o veículo referido no nome acessível.
+- O scroll da navbar deixou de consultar `document.documentElement.scrollHeight` em cada evento. A linha de progresso passou a usar CSS `animation-timeline: scroll()`. O novo relatório não mostrou `forced-reflow-insight` como alerta reprovado.
+- As imagens de Localização, vitrine, detalhes e logotipo passaram a usar níveis de compressão menores (WebP). No relatório após a alteração, a oportunidade de imagens ficou estimada em **43 KiB**, mas não zerou.
+- Adicionamos `preconnect` ao host do Supabase. A árvore crítica ainda registra a consulta pública do catálogo, pois ela depende de JavaScript no cliente; eliminar a requisição exigiria arquitetura com snapshot/SSR e controle de atualização do estoque.
+- O CSS minificado permanece bloqueador de renderização inicial (**~11 KiB transferidos**) para evitar flashes de layout incorreto. Injetar CSS completo ou adiá-lo sem CSS crítico poderia piorar LCP/CLS. A estimativa de ~170 ms não equivale a tempo real desperdiçado em todas as visitas.
+- A medição de laboratório Lighthouse varia com CPU/rede do runner. Execuções depois da refatoração apresentaram medianas mobile de **94–98** (3 amostras), e a auditoria específica de acessibilidade registrou desempenho **86** em uma execução. Não interpretar um score isolado como garantia de desempenho fixo.
+
+Revalidar visualmente contraste em estados hover/focus e consultar Core Web Vitals reais no Search Console. A pontuação 100 automática não substitui testes manuais com leitores de tela e navegação por teclado.
+
 ## Recomendações de acompanhamento
 
 1. Avaliar mediana Lighthouse de várias execuções com carga semelhante, além do PageSpeed web de dispositivos móveis reais.
