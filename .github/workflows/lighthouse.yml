@@ -35,6 +35,10 @@ jobs:
               '| TBT',audits['total-blocking-time']?.displayValue,
               '| CLS',audits['cumulative-layout-shift']?.displayValue,
               '| Bytes',audits['total-byte-weight']?.displayValue);
+            const lcpNode = audits['largest-contentful-paint-element']?.details?.items?.[0]?.items?.[0]?.node?.nodeLabel ?? 'não identificado';
+            console.log(device.toUpperCase(), '| ELEMENTO LCP:', lcpNode);
+            console.log(device.toUpperCase(), '| CPU JS:', audits['bootup-time']?.displayValue, '| Main thread:', audits['mainthread-work-breakdown']?.displayValue);
+            console.log(device.toUpperCase(), '| Imagens:', audits['image-delivery-insight']?.displayValue ?? 'sem alertas');
           }
           JS
       - uses: actions/upload-artifact@v4
