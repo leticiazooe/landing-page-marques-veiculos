@@ -46,8 +46,8 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
     <article data-vehicle-id={vehicle.id} className="marques-card-enter group flex min-w-0 flex-col overflow-hidden bg-white shadow-[0_12px_40px_rgba(22,18,11,0.06)]">
       <a href={vehiclePath(vehicle)} onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return; event.preventDefault(); onDetails(vehicle.id); }} aria-label={`Ver detalhes de ${vehicle.make} ${vehicle.model}`} className="relative block aspect-[1.32] w-full overflow-hidden bg-night text-left">
         <img
-          src={optimizedImage(vehicle.image, 800, 65)}
-          srcSet={responsiveImageSet(vehicle.image, [480, 800, 1200], 65)}
+          src={optimizedImage(vehicle.image, 800, 60)}
+          srcSet={responsiveImageSet(vehicle.image, [480, 800, 1200], 60)}
           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 32vw"
           alt={vehicle.illustrative ? `Imagem ilustrativa do ${vehicle.make} ${vehicle.model}` : `${vehicle.make} ${vehicle.model} disponível na Marques Veículos em Ibitinga`}
           width={800}
