@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/audit-accessibility.yml'
+      - 'src/components/**'
+      - 'src/index.css'
+      - 'src/main.tsx'
+      - 'index.html'
   schedule:
     - cron: '30 13 * * 1'
 permissions:
