@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { navLinks, whatsappUrl } from '../data/site';
+import { optimizedImage } from '../lib/images';
 
 const contactLink = whatsappUrl('Olá! Gostaria de conhecer a Marques Veículos e as opções disponíveis.');
 
@@ -56,7 +57,7 @@ export function Header({ solid = false }: { solid?: boolean }) {
       <div className={`border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${solid || scrolled || menuOpen ? 'border-gold/15 bg-night/98 shadow-[0_12px_32px_rgba(0,0,0,.20)] backdrop-blur-xl' : 'border-white/10 bg-night/40 backdrop-blur-md'}`}>
         <div className="mx-auto flex h-[86px] w-[min(1400px,calc(100%-48px))] items-center justify-between gap-8 lg:h-[96px] lg:w-[min(1400px,calc(100%-112px))]">
           <a href="/#inicio" aria-label="Marques Veículos, voltar ao início" onClick={() => setMenuOpen(false)} className="z-10 -ml-2 flex w-[176px] shrink-0 items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:w-[194px]">
-            <img src="/images/logo-marques.png" alt="Marques Veículos Garagem" width={417} height={167} className="h-auto w-full object-contain" />
+            <img src={optimizedImage("/images/logo-marques.png", 480, 70)} alt="Marques Veículos Garagem" width={417} height={167} className="h-auto w-full object-contain" decoding="async" onError={event => { if (!event.currentTarget.src.endsWith("/images/logo-marques.png")) event.currentTarget.src = "/images/logo-marques.png"; }} />
           </a>
           <nav aria-label="Navegação principal" className="hidden items-center gap-6 lg:flex xl:gap-9">
             {navLinks.map(link => (
