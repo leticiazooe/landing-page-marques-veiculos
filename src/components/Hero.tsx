@@ -22,14 +22,14 @@ export function Hero() {
       if ('requestIdleCallback' in window) {
         idleId = window.requestIdleCallback(() => setPlayVideo(true), { timeout: 7000 });
       } else {
-        timeout = window.setTimeout(() => setPlayVideo(true), 3500);
+        timeout = setTimeout(() => setPlayVideo(true), 3500);
       }
     };
     if (document.readyState === 'complete') schedule();
     else window.addEventListener('load', schedule, { once: true });
     return () => {
       window.removeEventListener('load', schedule);
-      if (timeout !== undefined) window.clearTimeout(timeout);
+      if (timeout !== undefined) clearTimeout(timeout);
       if (idleId !== undefined && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
     };
   }, []);
