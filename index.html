@@ -61,7 +61,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Capa é o principal recurso visual acima da dobra. -->
+    <link rel="preload" href="/images/capa-marques.webp" as="image" fetchpriority="high" />
+    <!-- Fontes são aplicadas sem bloquear a primeira pintura, pelo main.tsx. -->
     <title>Marques Veículos | Garagem de Carros em Ibitinga, SP</title>
   </head>
   <body class="bg-night text-ivory antialiased">
