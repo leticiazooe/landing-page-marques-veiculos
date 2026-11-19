@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, Clock3, MapPin, Phone, MessageCircle } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { contact, whatsappUrl } from '../data/site';
@@ -8,26 +6,10 @@ import { optimizedImage } from '../lib/images';
 const whatsapp = whatsappUrl('Olá! Gostaria de falar com a Marques Veículos.');
 
 export function Visit() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'start start'],
-  });
-  const photoScale = useTransform(scrollYProgress, [0, 1], [1.075, 1]);
-  const photoY = useTransform(scrollYProgress, [0, 1], [-18, 0]);
-  const veilOpacity = useTransform(scrollYProgress, [0, 0.45, 1], [0.68, 0.34, 0]);
-  const highlightOpacity = useTransform(scrollYProgress, [0.12, 0.48, 0.85], [0, 0.55, 0]);
-  const highlightY = useTransform(scrollYProgress, [0, 1], [-28, 100]);
-
   return (
-    <section ref={sectionRef} id="localizacao" aria-labelledby="visit-title" className="relative isolate flex min-h-[calc(100svh-86px)] scroll-mt-[86px] items-center overflow-hidden bg-night py-8 text-ivory sm:py-9 lg:min-h-[calc(100svh-96px)] lg:scroll-mt-[96px] lg:py-7">
+    <section id="localizacao" aria-labelledby="visit-title" className="relative isolate flex min-h-[calc(100svh-86px)] scroll-mt-[86px] items-center overflow-hidden bg-night py-8 text-ivory sm:py-9 lg:min-h-[calc(100svh-96px)] lg:scroll-mt-[96px] lg:py-7">
       {/* Revelação cinematográfica vinculada ao scroll, sem alterar a altura da seção. */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute -inset-5 -z-20"
-        style={reducedMotion ? undefined : { scale: photoScale, y: photoY }}
-      >
+      <div aria-hidden="true" className="marques-photo-scroll pointer-events-none absolute -inset-5 -z-20">
         <picture className="block h-full w-full">
           <source media="(max-width: 639px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 640, 70)} />
           <source media="(max-width: 1199px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 1200, 70)} />
@@ -45,7 +27,7 @@ export function Visit() {
             }}
           />
         </picture>
-      </motion.div>
+      </div>
       {/* Escurecimento lateral com transição aberta para revelar a garagem à direita. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,4,4,.96)_0%,rgba(4,4,4,.87)_19%,rgba(4,4,4,.58)_38%,rgba(4,4,4,.14)_64%,transparent_85%)] max-lg:bg-[linear-gradient(90deg,rgba(4,4,4,.86)_0%,rgba(4,4,4,.52)_45%,rgba(4,4,4,.08)_100%)]" />
       {/* Recorte diagonal tipo /, sutil e sem linhas rígidas. */}
@@ -56,20 +38,7 @@ export function Visit() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[clamp(200px,27vw,340px)] bg-[linear-gradient(180deg,rgba(3,3,3,0)_0%,rgba(3,3,3,.24)_32%,rgba(3,3,3,.72)_70%,#030303_100%)]"
       />
-      {!reducedMotion && (
-        <>
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-night"
-            style={{ opacity: veilOpacity }}
-          />
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-[8%] top-0 z-0 h-px bg-[linear-gradient(90deg,transparent,rgba(213,177,107,.7),transparent)] blur-[.5px]"
-            style={{ opacity: highlightOpacity, y: highlightY }}
-          />
-        </>
-      )}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-[8%] top-0 z-0 h-px bg-[linear-gradient(90deg,transparent,rgba(213,177,107,.28),transparent)]" />
       <div className="relative mx-auto w-[min(1440px,calc(100%-32px))] sm:w-[min(1440px,calc(100%-72px))] lg:w-[min(1440px,calc(100%-100px))]">
         <Reveal className="max-w-[500px]">
           <div className="rounded-[26px] border border-gold/30 bg-[#171210]/82 px-6 py-6 shadow-[0_22px_75px_rgba(0,0,0,.4)] backdrop-blur-xl sm:px-8 sm:py-6 lg:px-9 lg:py-7">
