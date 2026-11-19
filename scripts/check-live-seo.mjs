@@ -78,4 +78,20 @@ try {
   failed = true;
   console.error(JSON.stringify({ url: 'https://marquesveiculos.com.br/', result: 'ERROR', error: String(error) }));
 }
+// Teste real do CDN de imagens: confirma conversão do PNG grande em WebP sob demanda.
+try {
+  const url = site + '/_vercel/image?url=%2Fimages%2Fimagem-div-localizacao.png&w=640&q=70';
+  const response = await fetch(url, {
+    headers: { Accept: 'image/webp,image/*;q=0.8' },
+    signal: AbortSignal.timeout(35000),
+  });
+  const contentType = response.headers.get('content-type') ?? '';
+  const bytes = (await response.arrayBuffer()).byteLength;
+  const ok = response.ok && contentType.startsWith('image/') && bytes > 1024 && bytes < 500000;
+  console.log(JSON.stringify({ url, status: response.status, contentType, bytes, result: ok ? 'OK' : 'FAIL' }));
+  if (!ok) failed = true;
+} catch (error) {
+  console.error(JSON.stringify({ test: 'image-optimization', error: String(error) }));
+  failed = true;
+}
 process.exitCode = failed ? 1 : 0;
