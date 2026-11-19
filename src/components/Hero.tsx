@@ -15,7 +15,7 @@ export function Hero() {
     const media = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
     if (!media.matches || connection?.saveData || connection?.effectiveType === '2g' || connection?.effectiveType === 'slow-2g') return;
-    let timeout: number | undefined;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     let idleId: number | undefined;
     const schedule = () => {
       // Não disputa largura de banda com a imagem inicial e o JavaScript crítico.
