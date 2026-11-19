@@ -1,5 +1,4 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
-import { MotionConfig } from 'motion/react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Collection } from './components/Collection';
@@ -94,8 +93,7 @@ export default function App() {
 
   if (isAdmin) return <Suspense fallback={<div role="status" className="min-h-screen bg-night p-12 text-ivory">Carregando painel...</div>}><AdminPanel /></Suspense>;
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="min-h-screen overflow-clip bg-night font-sans text-ivory selection:bg-gold selection:text-night">
+    <div className="min-h-screen overflow-clip bg-night font-sans text-ivory selection:bg-gold selection:text-night">
         <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:p-4 focus:text-night">Ir para o conteúdo</a>
         <Header solid={Boolean(selected)} />
         <main id="conteudo">
@@ -109,7 +107,6 @@ export default function App() {
         </main>
         <Footer />
         <AnalyticsConsent />
-      </div>
-    </MotionConfig>
+    </div>
   );
 }
