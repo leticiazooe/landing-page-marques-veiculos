@@ -84,3 +84,16 @@
     }
   }
 }
+
+/* Progresso de rolagem renderizado pelo compositor; sem medir DOM a cada scroll. */
+.marques-scroll-progress { transform: scaleX(0); }
+@supports (animation-timeline: scroll()) {
+  @keyframes marques-scroll-track { to { transform: scaleX(1); } }
+  .marques-scroll-progress {
+    animation: marques-scroll-track linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marques-scroll-progress { animation: none; transform: none; }
+}
