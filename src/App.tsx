@@ -1,19 +1,23 @@
-import { useCallback, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { MotionConfig } from 'motion/react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Collection } from './components/Collection';
-import { VehicleDetails } from './components/VehicleDetails';
+
 import { BrandStrip } from './components/BrandStrip';
 import { Visit } from './components/Visit';
 import { Footer } from './components/Footer';
 import { type Vehicle } from './data/site';
 import { getPublicVehicles } from './lib/catalog';
-import { catalogConfigured } from './lib/supabase';
-import { AdminPanel } from './components/AdminPanel';
+import { catalogConfigured } from './lib/public-config';
+
 import { HOME_DESCRIPTION, HOME_TITLE, SITE_URL, vehicleDescription, vehiclePath, vehicleTitle } from './lib/vehicle-seo';
 import { analyticsConsent, attachConversionTracking, enableAnalytics, trackConversion } from './lib/analytics';
 import { AnalyticsConsent } from './components/AnalyticsConsent';
+
+// As rotas não usadas pelo visitante ficam fora do bundle inicial.
+const AdminPanel = lazy(async () => ({ default: (await import('./components/AdminPanel')).AdminPanel }));
+const VehicleDetails = lazy(async () => ({ default: (await import('./components/VehicleDetails')).VehicleDetails }));
 
 function readVehicle(): string | null { return new URLSearchParams(window.location.search).get('veiculo'); }
 
@@ -88,14 +92,14 @@ export default function App() {
     setMeta('meta[property="og:image"]', selected?.image ? new URL(selected.image, SITE_URL).href : SITE_URL + '/images/og-marques.webp');
   }, [selected, vehicleRouteRequested, catalogLoading]);
 
-  if (isAdmin) return <AdminPanel />;
+  if (isAdmin) return <Suspense fallback={<div role="status" className="min-h-screen bg-night p-12 text-ivory">Carregando painel...</div>}><AdminPanel /></Suspense>;
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen overflow-clip bg-night font-sans text-ivory selection:bg-gold selection:text-night">
         <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-gold focus:p-4 focus:text-night">Ir para o conteúdo</a>
         <Header solid={Boolean(selected)} />
         <main id="conteudo">
-          {selected ? <VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} />
+          {selected ? <Suspense fallback={<div role="status" className="min-h-[65svh] bg-cream px-6 pt-32 text-center text-ink">Carregando veículo...</div>}><VehicleDetails key={selected.id} vehicle={selected} onBack={() => navigate(null)} /></Suspense>
             : vehicleRouteRequested ? (
               <div className="flex min-h-[65svh] flex-col items-center justify-center gap-5 bg-cream px-6 pt-32 text-center text-ink">
                 <h1 className="text-3xl font-semibold">{catalogLoading ? 'Carregando detalhes do veículo...' : 'Veículo indisponível no momento'}</h1>
