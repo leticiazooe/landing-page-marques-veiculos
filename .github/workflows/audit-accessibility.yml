@@ -1,0 +1,59 @@
+name: Auditoria - Acessibilidade e performance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-accessibility.yml'
+  schedule:
+    - cron: '30 13 * * 1'
+permissions:
+  contents: read
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Executar Lighthouse mobile com acessibilidade
+        run: |
+          for tentativa in 1 2 3; do
+            if npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=accessibility,performance --quiet --output=json --output-path=./a11y-mobile.json; then exit 0; fi
+            sleep 4
+          done
+          exit 1
+      - name: Listar problemas e elementos afetados
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          const report=JSON.parse(readFileSync('a11y-mobile.json','utf8'));
+          console.log('PERFORMANCE',Math.round(report.categories.performance.score*100),'ACCESSIBILITY',Math.round(report.categories.accessibility.score*100));
+          for(const audit of Object.values(report.audits)){
+            if(audit.score===null || audit.score >= 1 || audit.scoreDisplayMode==='notApplicable') continue;
+            if(!['color-contrast','link-in-text-block','link-name','duplicate-id-aria','label','aria-valid-attr','image-alt','identical-links-same-purpose','forced-reflow-insight','render-blocking-resources','render-blocking-insight','network-dependency-tree-insight','image-delivery-insight','font-display-insight'].includes(audit.id)) continue;
+            console.log('AUDIT',audit.id,'SCORE',audit.score,'TITLE',audit.title,'DETAIL',audit.displayValue||'');
+            for(const item of (audit.details?.items??[]).slice(0,18)){
+              console.log('ITEM',JSON.stringify({
+                node:item.node?.snippet || item.node?.nodeLabel || item.node?.selector,
+                subItems:item.subItems?.items?.slice(0,5).map(i=>({node:i.node?.snippet,desc:i.wastedBytes,detail:i.url})),
+                url:item.url,
+                relatedNode:item.relatedNode?.snippet,
+                current:item.current,
+                value:item.value,
+                wastedBytes:item.wastedBytes,
+                explanation:item.explanation,
+                snippet:item.snippet,
+                href:item.href
+              }));
+            }
+          }
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marques-accessibility-audit
+          path: a11y-mobile.json
+          retention-days: 7
