@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, ArrowUpRight, CarFront, ChevronDown, Fuel, Gauge, Settings2 } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { type Vehicle, type VehicleCategory, formatPrice, whatsappUrl } from '../data/site';
@@ -44,7 +43,7 @@ function compareVehicles(a: Vehicle, b: Vehicle, order: SortOrder): number {
 function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id: string) => void }) {
   const message = whatsappUrl(`Olá! Vi o ${vehicle.make} ${vehicle.model} no site da Marques Veículos e gostaria de confirmar a disponibilidade, o preço e as condições de pagamento.`);
   return (
-    <motion.article data-vehicle-id={vehicle.id} layout initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} transition={{ duration: .42, ease: [0.22, 1, 0.36, 1] }} className="group flex min-w-0 flex-col overflow-hidden bg-white shadow-[0_12px_40px_rgba(22,18,11,0.06)]">
+    <article data-vehicle-id={vehicle.id} className="marques-card-enter group flex min-w-0 flex-col overflow-hidden bg-white shadow-[0_12px_40px_rgba(22,18,11,0.06)]">
       <a href={vehiclePath(vehicle)} onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return; event.preventDefault(); onDetails(vehicle.id); }} aria-label={`Ver detalhes de ${vehicle.make} ${vehicle.model}`} className="relative block aspect-[1.32] w-full overflow-hidden bg-night text-left">
         <img
           src={optimizedImage(vehicle.image, 800, 65)}
@@ -81,7 +80,7 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
           <a href={message} target="_blank" rel="noopener noreferrer" className="rounded-xl inline-flex min-h-12 items-center justify-center gap-2 bg-ink px-3 text-[14px] font-semibold text-gold-light transition-colors hover:bg-[#33342f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Falar no WhatsApp <ArrowUpRight size={16} /></a>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -103,7 +102,7 @@ export function Collection({ onDetails, vehicles, loading = false, error }: { on
         </div>
         <div className="mb-7 mt-12 flex flex-col gap-5 border-t border-white/25 pt-5 lg:flex-row lg:items-center lg:justify-between">
           <div role="group" aria-label="Filtrar veículos por categoria" className="flex flex-wrap gap-x-6 gap-y-1">
-            {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[15px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ivory' : 'text-ivory/60 hover:text-ivory'}`}>{item.label}{filter === item.value && <motion.span layoutId="vehicle-filter-indicator" className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
+            {filters.map(item => <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`relative min-h-11 text-[15px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-dark ${filter === item.value ? 'text-ivory' : 'text-ivory/60 hover:text-ivory'}`}>{item.label}{filter === item.value && <span className="absolute bottom-0 inset-x-0 h-[2px] bg-gold-dark" />}</button>)}
           </div>
           <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 sm:justify-end">
             <p aria-live="polite" className="text-[14px] text-ivory/70">{visible.length} {visible.length === 1 ? 'modelo' : 'modelos'} na vitrine</p>
@@ -123,9 +122,9 @@ export function Collection({ onDetails, vehicles, loading = false, error }: { on
             </div>
           </div>
         </div>
-        {loading ? <div role="status" aria-live="polite" className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Carregando os veículos disponíveis...</div> : error ? <div role="alert" className="border border-[#bd945b] bg-white p-8 text-[17px] text-ink">{error}</div> : visible.length === 0 ? <div className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Nenhum veículo nesta categoria no momento. Fale com a equipe pelo WhatsApp para consultar novas opções.</div> : <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <AnimatePresence initial={false}>{visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}</AnimatePresence>
-        </motion.div>}
+        {loading ? <div role="status" aria-live="polite" className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Carregando os veículos disponíveis...</div> : error ? <div role="alert" className="border border-[#bd945b] bg-white p-8 text-[17px] text-ink">{error}</div> : visible.length === 0 ? <div className="border border-ink/15 bg-white p-8 text-[17px] text-ink/70">Nenhum veículo nesta categoria no momento. Fale com a equipe pelo WhatsApp para consultar novas opções.</div> : <div className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {visible.map(vehicle => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} />)}
+        </div>}
       </div>
     </section>
   );
