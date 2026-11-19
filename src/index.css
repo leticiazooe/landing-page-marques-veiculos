@@ -55,3 +55,32 @@
     mask-image: none;
   }
 }
+
+/* Motion Design em CSS: efeitos leves, executados no compositor sem biblioteca JS. */
+@keyframes marques-rise {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes marques-card-rise {
+  from { opacity: .78; transform: translate3d(0, 16px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marques-hero-enter { animation: marques-rise .58s cubic-bezier(.22, 1, .36, 1) both; }
+  .marques-hero-cta { animation-delay: .12s; }
+  .marques-mobile-nav { animation: marques-rise .28s cubic-bezier(.22, 1, .36, 1) both; }
+  .marques-card-enter { animation: marques-card-rise .42s cubic-bezier(.22, 1, .36, 1) both; }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @keyframes marques-location-depth {
+      from { transform: translate3d(0, -14px, 0) scale(1.055); }
+      to { transform: translate3d(0, 0, 0) scale(1); }
+    }
+    .marques-photo-scroll {
+      animation: marques-location-depth linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
