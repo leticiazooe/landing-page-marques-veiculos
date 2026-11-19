@@ -67,17 +67,17 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
       <div className="flex grow flex-col p-5 sm:p-7">
         <p className="text-[13px] font-semibold uppercase tracking-[.17em] text-gold-dark">{vehicle.make} · {vehicle.year}</p>
         <h3 className="mt-2 font-sans text-[clamp(27px,2.5vw,35px)] font-semibold leading-tight tracking-[-.05em] text-ink">{vehicle.model}</h3>
-        <p className="mt-1 text-[16px] text-ink/55">{vehicle.trim}</p>
+        <p className="mt-1 text-[16px] text-ink/70">{vehicle.trim}</p>
         <div className="mt-5 grid grid-cols-3 gap-2 border-y border-ink/10 py-4 text-[13px] leading-normal text-ink/70">
           <span className="flex flex-col items-start gap-2"><Gauge size={17} className="text-gold-dark" />{vehicle.km}</span>
           <span className="flex flex-col items-start gap-2"><Settings2 size={17} className="text-gold-dark" />{vehicle.transmission}</span>
           <span className="flex flex-col items-start gap-2"><Fuel size={17} className="text-gold-dark" />{vehicle.fuel}</span>
         </div>
-        <p className="mt-5 text-[13px] font-semibold uppercase tracking-[.16em] text-ink/55">{vehicle.illustrative ? 'Preço de exemplo' : 'Valor anunciado'}</p>
+        <p className="mt-5 text-[13px] font-semibold uppercase tracking-[.16em] text-ink/70">{vehicle.illustrative ? 'Preço de exemplo' : 'Valor anunciado'}</p>
         <p className="mt-1 text-[31px] font-semibold leading-none tracking-[-.055em] text-ink">{formatPrice(vehicle.price)}</p>
         <div className="mt-auto grid gap-2 pt-6 sm:grid-cols-2">
-          <a href={vehiclePath(vehicle)} onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return; event.preventDefault(); onDetails(vehicle.id); }} className="inline-flex min-h-12 items-center justify-center gap-2 border border-ink/25 px-3 text-[14px] font-semibold text-ink transition-colors hover:border-gold-dark hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Mais detalhes <ArrowRight size={16} /></a>
-          <a href={message} target="_blank" rel="noopener noreferrer" className="rounded-xl inline-flex min-h-12 items-center justify-center gap-2 bg-ink px-3 text-[14px] font-semibold text-gold-light transition-colors hover:bg-[#33342f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Falar no WhatsApp <ArrowUpRight size={16} /></a>
+          <a href={vehiclePath(vehicle)} onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return; event.preventDefault(); onDetails(vehicle.id); }} aria-label={`Ver detalhes do ${vehicle.make} ${vehicle.model} ${vehicle.year}`} className="inline-flex min-h-12 items-center justify-center gap-2 border border-ink/25 px-3 text-[14px] font-semibold text-ink transition-colors hover:border-gold-dark hover:bg-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Mais detalhes <ArrowRight size={16} /></a>
+          <a href={message} target="_blank" rel="noopener noreferrer" aria-label={`Conversar pelo WhatsApp sobre ${vehicle.make} ${vehicle.model} ${vehicle.year}`} className="rounded-xl inline-flex min-h-12 items-center justify-center gap-2 bg-ink px-3 text-[14px] font-semibold text-gold-light transition-colors hover:bg-[#33342f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-dark">Falar no WhatsApp <ArrowUpRight size={16} /></a>
         </div>
       </div>
     </article>
