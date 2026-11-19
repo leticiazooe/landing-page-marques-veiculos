@@ -1,0 +1,44 @@
+name: Lighthouse - Auditoria de performance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/lighthouse.yml'
+  schedule:
+    - cron: '0 13 * * 1'
+permissions:
+  contents: read
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Auditoria mobile
+        run: npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-mobile.json
+      - name: Auditoria desktop
+        run: npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --preset=desktop --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-desktop.json
+      - name: Resumo dos indicadores
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          for (const device of ['mobile','desktop']) {
+            const data = JSON.parse(readFileSync('lighthouse-'+device+'.json','utf8'));
+            const audits = data.audits;
+            const score = Math.round((data.categories.performance.score ?? 0)*100);
+            console.log(device.toUpperCase(), '| PERFORMANCE', score, '| LCP',audits['largest-contentful-paint']?.displayValue,
+              '| FCP',audits['first-contentful-paint']?.displayValue,
+              '| TBT',audits['total-blocking-time']?.displayValue,
+              '| CLS',audits['cumulative-layout-shift']?.displayValue,
+              '| Bytes',audits['total-byte-weight']?.displayValue);
+          }
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marques-lighthouse-results
+          path: lighthouse-*.json
+          retention-days: 7
