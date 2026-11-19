@@ -26,39 +26,45 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Auditoria mobile
+      - name: Três amostras mobile (mediana evita conclusão por teste atípico)
         run: |
-          for tentativa in 1 2 3; do
-            if npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-mobile.json; then exit 0; fi
-            echo "Lighthouse mobile: falha temporária, repetindo (${tentativa}/3)"
-            sleep 4
+          for amostra in 1 2 3; do
+            sucesso=0
+            for tentativa in 1 2 3; do
+              if npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path="./lighthouse-mobile-${amostra}.json"; then
+                sucesso=1
+                break
+              fi
+              echo "Mobile: Chrome falhou na amostra ${amostra}, tentativa ${tentativa}/3"
+              sleep 4
+            done
+            if [ "$sucesso" != "1" ]; then exit 1; fi
           done
-          exit 1
       - name: Auditoria desktop
         run: |
           for tentativa in 1 2 3; do
             if npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --preset=desktop --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-desktop.json; then exit 0; fi
-            echo "Lighthouse desktop: falha temporária, repetindo (${tentativa}/3)"
+            echo "Desktop: falha temporária do Chrome, tentativa ${tentativa}/3"
             sleep 4
           done
           exit 1
-      - name: Resumo dos indicadores
+      - name: Resumo e mediana de desempenho
         run: |
           node --input-type=module <<'JS'
           import { readFileSync } from 'node:fs';
-          for (const device of ['mobile','desktop']) {
-            const data = JSON.parse(readFileSync('lighthouse-'+device+'.json','utf8'));
-            const audits = data.audits;
-            const score = Math.round((data.categories.performance.score ?? 0)*100);
-            console.log(device.toUpperCase(), '| PERFORMANCE', score, '| LCP',audits['largest-contentful-paint']?.displayValue,
-              '| FCP',audits['first-contentful-paint']?.displayValue,
-              '| TBT',audits['total-blocking-time']?.displayValue,
-              '| CLS',audits['cumulative-layout-shift']?.displayValue,
-              '| Bytes',audits['total-byte-weight']?.displayValue);
-            const lcpNode = audits['largest-contentful-paint-element']?.details?.items?.[0]?.items?.[0]?.node?.nodeLabel ?? 'não identificado';
-            console.log(device.toUpperCase(), '| ELEMENTO LCP:', lcpNode);
-            console.log(device.toUpperCase(), '| CPU JS:', audits['bootup-time']?.displayValue, '| Main thread:', audits['mainthread-work-breakdown']?.displayValue);
-            console.log(device.toUpperCase(), '| Imagens:', audits['image-delivery-insight']?.displayValue ?? 'sem alertas');
+          const mobile = [1, 2, 3].map(n => JSON.parse(readFileSync(`lighthouse-mobile-${n}.json`, 'utf8')));
+          const desktop = JSON.parse(readFileSync('lighthouse-desktop.json', 'utf8'));
+          const scores = mobile.map(d => Math.round(d.categories.performance.score * 100));
+          const median = [...scores].sort((a,b) => a-b)[1];
+          console.log('MOBILE | AMOSTRAS', scores.join(', '), '| MEDIANA', median, '| MÍNIMO', Math.min(...scores), '| MÁXIMO', Math.max(...scores));
+          for (const [name, data] of [...mobile.map((d,i) => ['MOBILE-'+(i+1), d]), ['DESKTOP', desktop]]) {
+            const a = data.audits;
+            console.log(name, '| PERFORMANCE', Math.round(data.categories.performance.score * 100),
+              '| LCP', a['largest-contentful-paint']?.displayValue,
+              '| FCP', a['first-contentful-paint']?.displayValue,
+              '| TBT', a['total-blocking-time']?.displayValue,
+              '| CLS', a['cumulative-layout-shift']?.displayValue,
+              '| CPU', a['bootup-time']?.displayValue);
           }
           JS
       - uses: actions/upload-artifact@v4
