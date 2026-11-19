@@ -20,16 +20,28 @@ permissions:
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Auditoria mobile
-        run: npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-mobile.json
+        run: |
+          for tentativa in 1 2 3; do
+            if npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-mobile.json; then exit 0; fi
+            echo "Lighthouse mobile: falha temporária, repetindo (${tentativa}/3)"
+            sleep 4
+          done
+          exit 1
       - name: Auditoria desktop
-        run: npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --preset=desktop --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-desktop.json
+        run: |
+          for tentativa in 1 2 3; do
+            if npx --yes lighthouse@12 https://www.marquesveiculos.com.br/ --preset=desktop --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance --quiet --output=json --output-path=./lighthouse-desktop.json; then exit 0; fi
+            echo "Lighthouse desktop: falha temporária, repetindo (${tentativa}/3)"
+            sleep 4
+          done
+          exit 1
       - name: Resumo dos indicadores
         run: |
           node --input-type=module <<'JS'
