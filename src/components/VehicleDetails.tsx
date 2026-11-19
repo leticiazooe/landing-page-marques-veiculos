@@ -31,8 +31,8 @@ export function VehicleDetails({ vehicle, onBack }: { vehicle: Vehicle; onBack: 
         <div className="grid gap-9 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,.9fr)] lg:gap-12">
           <motion.div initial={reduced?false:{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.6}} className="overflow-hidden bg-[#141615]">
             <img
-              src={optimizedImage(vehicle.image, 1200, 70)}
-              srcSet={responsiveImageSet(vehicle.image, [640, 960, 1200, 1600], 70)}
+              src={optimizedImage(vehicle.image, 1200, 65)}
+              srcSet={responsiveImageSet(vehicle.image, [640, 960, 1200, 1600], 65)}
               sizes="(max-width: 1024px) 95vw, 58vw"
               alt={`Foto do ${vehicle.make} ${vehicle.model}`}
               width={1200}
