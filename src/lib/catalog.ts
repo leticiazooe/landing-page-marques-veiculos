@@ -1,5 +1,5 @@
 import { type Vehicle, type VehicleCategory } from '../data/site';
-import { catalogConfigured, supabase } from './supabase';
+import { catalogConfigured, publicCatalogKey, publicCatalogUrl } from './public-config';
 
 export type VehicleStatus = 'draft' | 'published' | 'sold';
 
@@ -61,12 +61,20 @@ export function rowToVehicle(row: VehicleRow): Vehicle {
 
 /** Only published records leave the database. RLS enforces this for visitors. */
 export async function getPublicVehicles(): Promise<Vehicle[]> {
-  if (!catalogConfigured || !supabase) return [];
-  const { data, error } = await supabase
-    .from('marques_vehicles')
-    .select('*')
-    .eq('status', 'published')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return ((data ?? []) as VehicleRow[]).map(rowToVehicle);
+  if (!catalogConfigured) return [];
+  const url = new URL('/rest/v1/marques_vehicles', publicCatalogUrl);
+  url.searchParams.set('select', '*');
+  url.searchParams.set('status', 'eq.published');
+  url.searchParams.set('order', 'created_at.desc');
+  const response = await fetch(url, {
+    headers: {
+      apikey: publicCatalogKey,
+      Authorization: `Bearer ${publicCatalogKey}`,
+      Accept: 'application/json',
+    },
+    signal: AbortSignal.timeout(12000),
+  });
+  if (!response.ok) throw new Error('Falha ao consultar o catálogo público');
+  const records: VehicleRow[] = await response.json();
+  return records.map(rowToVehicle);
 }
