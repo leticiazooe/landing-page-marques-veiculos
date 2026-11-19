@@ -24,5 +24,80 @@
       "destination": "/veiculos/toyota-corolla-cross-2026-64418c67-3352-4308-aaeb-b476c527a5cf/",
       "permanent": true
     }
+  ],
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "images": {
+    "sizes": [
+      480,
+      640,
+      800,
+      960,
+      1200,
+      1600,
+      1920
+    ],
+    "qualities": [
+      60,
+      65,
+      70,
+      75,
+      80
+    ],
+    "formats": [
+      "image/webp"
+    ],
+    "minimumCacheTTL": 2592000,
+    "localPatterns": [
+      {
+        "pathname": "^/images/.*$",
+        "search": ""
+      }
+    ],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "pxizyivehrwwgwhjjynv.supabase.co",
+        "port": "",
+        "pathname": "^/storage/v1/object/public/marques-vehicles/.*$"
+      }
+    ]
+  },
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/favicon-32x32.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    }
   ]
 }
