@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowUpRight, CalendarDays, Check, ChevronRight, CreditCard, Fuel, Gauge, GitBranch, Landmark, MapPin, Settings2, ShieldCheck, Tag, Wallet } from 'lucide-react';
 import { formatPrice, paymentMethods, type Vehicle, whatsappUrl } from '../data/site';
+import { optimizedImage, responsiveImageSet } from '../lib/images';
 
 const labelClass = 'text-[13px] uppercase tracking-[.15em] font-semibold text-ink/55';
 const specs = (v: Vehicle) => [
@@ -29,8 +30,36 @@ export function VehicleDetails({ vehicle, onBack }: { vehicle: Vehicle; onBack: 
         <button onClick={onBack} className="rounded-xl mb-7 inline-flex min-h-11 items-center gap-2 text-[16px] font-semibold text-ink/65 hover:text-gold-dark focus-visible:outline-2 focus-visible:outline-gold-dark" type="button"><ArrowLeft size={18} /> Voltar aos veículos</button>
         <div className="grid gap-9 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,.9fr)] lg:gap-12">
           <motion.div initial={reduced?false:{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.6}} className="overflow-hidden bg-[#141615]">
-            <img src={vehicle.image} alt={`Foto do ${vehicle.make} ${vehicle.model}`} className="aspect-[4/3] w-full object-cover lg:aspect-[1.06]" fetchPriority="high" />
-            {(vehicle.gallery?.length ?? 0) > 0 && <div className="grid grid-cols-3 gap-2 bg-night p-2">{vehicle.gallery?.map((url, index) => <a key={index} href={url} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar foto ${index + 2} do veículo`}><img src={url} alt={`Detalhe ${index + 2} do veículo`} loading="lazy" className="aspect-[4/3] w-full object-cover transition-opacity hover:opacity-80" /></a>)}</div>}
+            <img
+              src={optimizedImage(vehicle.image, 1200, 70)}
+              srcSet={responsiveImageSet(vehicle.image, [640, 960, 1200, 1600], 70)}
+              sizes="(max-width: 1024px) 95vw, 58vw"
+              alt={`Foto do ${vehicle.make} ${vehicle.model}`}
+              width={1200}
+              height={900}
+              className="aspect-[4/3] w-full object-cover lg:aspect-[1.06]"
+              fetchPriority="high"
+              decoding="async"
+              onError={event => {
+                event.currentTarget.removeAttribute('srcset');
+                if (event.currentTarget.src !== vehicle.image) event.currentTarget.src = vehicle.image;
+              }}
+            />
+            {(vehicle.gallery?.length ?? 0) > 0 && <div className="grid grid-cols-3 gap-2 bg-night p-2">{vehicle.gallery?.map((url, index) => <a key={index} href={url} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar foto ${index + 2} do veículo`}><img
+              src={optimizedImage(url, 480, 65)}
+              srcSet={responsiveImageSet(url, [480, 800], 65)}
+              sizes="(max-width: 1024px) 30vw, 18vw"
+              alt={`Detalhe ${index + 2} do veículo`}
+              width={480}
+              height={360}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/3] w-full object-cover transition-opacity hover:opacity-80"
+              onError={event => {
+                event.currentTarget.removeAttribute('srcset');
+                if (event.currentTarget.src !== url) event.currentTarget.src = url;
+              }}
+            /></a>)}</div>}
           </motion.div>
           <div className="flex flex-col justify-center">
             <p className="text-[13px] font-bold uppercase tracking-[.2em] text-gold-dark">Conheça o modelo · {vehicle.make}</p>
