@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "check:assets": "node scripts/check-assets.mjs",
     "check:seo": "node scripts/check-seo.mjs",
-    "predev": "node scripts/export-brand-logos.mjs"
+    "predev": "node scripts/export-brand-logos.mjs",
+    "check:performance": "node scripts/check-performance-budget.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
