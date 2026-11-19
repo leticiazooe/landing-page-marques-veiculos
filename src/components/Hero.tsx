@@ -1,13 +1,38 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { whatsappUrl } from '../data/site';
 
-const intro = { duration: .82, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
+const intro = { duration: .55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
 
 export function Hero() {
   const section = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
+  const [playVideo, setPlayVideo] = useState(false);
+  // A fotografia é o LCP. Vídeo cinematográfico só entra após o carregamento
+  // e apenas em desktop sem economia de dados ou preferência por menos movimento.
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (!media.matches || connection?.saveData || connection?.effectiveType === '2g' || connection?.effectiveType === 'slow-2g') return;
+    let timeout: number | undefined;
+    let idleId: number | undefined;
+    const schedule = () => {
+      // Não disputa largura de banda com a imagem inicial e o JavaScript crítico.
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(() => setPlayVideo(true), { timeout: 7000 });
+      } else {
+        timeout = window.setTimeout(() => setPlayVideo(true), 3500);
+      }
+    };
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
+    return () => {
+      window.removeEventListener('load', schedule);
+      if (timeout !== undefined) window.clearTimeout(timeout);
+      if (idleId !== undefined && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+    };
+  }, []);
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end start'] });
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.055]);
   const translate = useTransform(scrollYProgress, [0, 1], [0, 48]);
@@ -16,18 +41,27 @@ export function Hero() {
     : { initial: { opacity: 0, y: distance }, animate: { opacity: 1, y: 0 }, transition: { ...intro, delay } };
 
   return (
-    <section ref={section} id="inicio" aria-labelledby="hero-title" className="relative isolate flex min-h-[850px] items-center overflow-hidden bg-night lg:h-[100svh] lg:min-h-[780px] lg:max-h-[1100px]">
+    <section ref={section} id="inicio" aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-night lg:h-[100svh] lg:min-h-[780px] lg:max-h-[1100px]">
       <motion.div aria-hidden="true" className="absolute inset-0 -z-30" style={reduce ? undefined : { scale, y: translate }}>
-        {reduce ? (
-          <img src="/images/capa-marques.webp" alt="" width={1920} height={1434} fetchPriority="high" className="h-full w-full object-cover object-[60%_center] lg:object-[center_52%]" />
-        ) : (
+        <img
+          src="/images/capa-marques.webp"
+          alt=""
+          width={1920}
+          height={1434}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          className="h-full w-full object-cover object-[60%_center] lg:object-[center_52%]"
+        />
+        {playVideo && (
           <video
-            className="h-full w-full object-cover object-[60%_center] lg:object-[center_52%]"
+            className="absolute inset-0 h-full w-full object-cover object-[60%_center] lg:object-[center_52%]"
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="none"
+            poster="/images/capa-marques.webp"
             aria-hidden="true"
             disablePictureInPicture
           >
@@ -39,18 +73,18 @@ export function Hero() {
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-night/85 to-transparent" />
       <div className="relative z-10 mx-auto flex w-[calc(100%-40px)] items-center pb-[138px] pt-[186px] sm:w-[calc(100%-64px)] sm:pb-[145px] lg:w-[calc(100%-128px)] lg:pb-[96px] lg:pt-[150px]">
         <div className="max-w-[690px]">
-          <motion.div {...entrance(.10, 12)} className="mb-8 text-[12px] font-semibold uppercase tracking-[.22em] text-gold-light sm:mb-10 sm:text-[13px]">
+          <motion.div {...entrance(.05, 12)} className="mb-8 text-[12px] font-semibold uppercase tracking-[.22em] text-gold-light sm:mb-10 sm:text-[13px]">
             Garagem de carros em Ibitinga e região
           </motion.div>
           <h1 id="hero-title" className="max-w-[690px] font-sans text-[clamp(43px,5.15vw,82px)] font-semibold leading-[1.095] tracking-[-.071em] text-ivory">
-            <motion.span className="block" {...entrance(.22, 27)}>O seu próximo</motion.span>
-            <motion.span className="block" {...entrance(.34, 27)}>capítulo começa</motion.span>
-            <motion.em className="mt-3 block font-display text-[1.17em] font-normal leading-[.99] tracking-[-.04em] text-gold-light" {...entrance(.47, 20)}>na estrada.</motion.em>
+            <span className="block">O seu próximo</span>
+            <span className="block">capítulo começa</span>
+            <em className="mt-3 block font-display text-[1.17em] font-normal leading-[.99] tracking-[-.04em] text-gold-light">na estrada.</em>
           </h1>
-          <motion.p {...entrance(.59)} className="mt-9 max-w-[460px] border-l border-gold/65 pl-5 text-[17px] leading-[1.85] text-ivory/85 sm:mt-10 sm:pl-6 sm:text-[18px]">
+          <motion.p {...entrance(.18)} className="mt-9 max-w-[460px] border-l border-gold/65 pl-5 text-[17px] leading-[1.85] text-ivory/85 sm:mt-10 sm:pl-6 sm:text-[18px]">
             Estamos em Ibitinga. Conheça os modelos apresentados e converse com a equipe sobre o carro que você procura.
           </motion.p>
-          <motion.div {...entrance(.71, 15)} className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5 sm:mt-11">
+          <motion.div {...entrance(.26, 15)} className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5 sm:mt-11">
             <a href="#veiculos" className="group inline-flex min-h-[60px] items-center justify-between gap-8 rounded-xl bg-[linear-gradient(110deg,#785720,#b58a3d,#d3b273,#97712d,#6a4b19)] bg-[length:200%_200%] px-7 text-[13px] font-bold uppercase tracking-[.08em] text-[#20180c] shadow-[0_8px_24px_rgba(0,0,0,.2)] transition-[background-position,transform,box-shadow] duration-700 ease-in-out hover:scale-[.97] hover:bg-right hover:shadow-[3px_3px_12px_rgba(0,0,0,.2)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light motion-reduce:transform-none sm:px-9">
               Conhecer veículos <ArrowRight aria-hidden="true" size={20} className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
             </a>
