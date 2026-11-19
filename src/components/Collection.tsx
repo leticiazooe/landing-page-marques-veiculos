@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, CarFront, ChevronDown, Fuel, Gauge, Settings2
 import { Reveal } from './Reveal';
 import { type Vehicle, type VehicleCategory, formatPrice, whatsappUrl } from '../data/site';
 import { vehiclePath } from '../lib/vehicle-seo';
+import { optimizedImage, responsiveImageSet } from '../lib/images';
 
 const filters: { label: string; value: VehicleCategory | 'todos' }[] = [
   { label: 'Todos os veículos', value: 'todos' },
@@ -45,7 +46,21 @@ function VehicleCard({ vehicle, onDetails }: { vehicle: Vehicle; onDetails: (id:
   return (
     <motion.article data-vehicle-id={vehicle.id} layout initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} transition={{ duration: .42, ease: [0.22, 1, 0.36, 1] }} className="group flex min-w-0 flex-col overflow-hidden bg-white shadow-[0_12px_40px_rgba(22,18,11,0.06)]">
       <a href={vehiclePath(vehicle)} onClick={event => { if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return; event.preventDefault(); onDetails(vehicle.id); }} aria-label={`Ver detalhes de ${vehicle.make} ${vehicle.model}`} className="relative block aspect-[1.32] w-full overflow-hidden bg-night text-left">
-        <img src={vehicle.image} alt={`Imagem ilustrativa do ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.045]" loading="lazy" decoding="async" />
+        <img
+          src={optimizedImage(vehicle.image, 800, 65)}
+          srcSet={responsiveImageSet(vehicle.image, [480, 800, 1200], 65)}
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 32vw"
+          alt={vehicle.illustrative ? `Imagem ilustrativa do ${vehicle.make} ${vehicle.model}` : `${vehicle.make} ${vehicle.model} disponível na Marques Veículos em Ibitinga`}
+          width={800}
+          height={600}
+          className="h-full w-full object-cover transition-transform duration-700 ease-luxe group-hover:scale-[1.045]"
+          loading="lazy"
+          decoding="async"
+          onError={event => {
+            event.currentTarget.removeAttribute('srcset');
+            if (event.currentTarget.src !== vehicle.image) event.currentTarget.src = vehicle.image;
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         {vehicle.illustrative && <span className="absolute left-5 top-5 bg-night/85 px-3 py-2 text-[13px] font-bold uppercase tracking-[.14em] text-gold-light backdrop-blur-sm">Imagem ilustrativa</span>}
         <span className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center border border-white/60 bg-black/20 text-white transition-colors group-hover:bg-gold group-hover:text-night"><ArrowUpRight size={19} /></span>
