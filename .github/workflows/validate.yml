@@ -29,3 +29,5 @@ jobs:
         run: npm run build
       - name: Validar SEO gerado
         run: npm run check:seo
+      - name: Conferir orçamento de performance
+        run: npm run check:performance
