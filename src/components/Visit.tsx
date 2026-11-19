@@ -11,10 +11,10 @@ export function Visit() {
       {/* Revelação cinematográfica vinculada ao scroll, sem alterar a altura da seção. */}
       <div aria-hidden="true" className="marques-photo-scroll pointer-events-none absolute -inset-5 -z-20">
         <picture className="block h-full w-full">
-          <source media="(max-width: 639px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 640, 70)} />
-          <source media="(max-width: 1199px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 1200, 70)} />
+          <source media="(max-width: 639px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 640, 60)} />
+          <source media="(max-width: 1199px)" srcSet={optimizedImage('/images/imagem-div-localizacao.png', 1200, 60)} />
           <img
-            src={optimizedImage('/images/imagem-div-localizacao.png', 1920, 70)}
+            src={optimizedImage('/images/imagem-div-localizacao.png', 1920, 60)}
             alt=""
             width={1920}
             height={1080}
