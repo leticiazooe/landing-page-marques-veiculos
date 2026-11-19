@@ -9,7 +9,6 @@ export function Header({ solid = false }: { solid?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
-  const progressBar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let raf = 0;
@@ -17,8 +16,6 @@ export function Header({ solid = false }: { solid?: boolean }) {
       raf = 0;
       const scrolledNow = window.scrollY > 32;
       setScrolled(previous => previous === scrolledNow ? previous : scrolledNow);
-      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      if (progressBar.current) progressBar.current.style.transform = `scaleX(${Math.min(window.scrollY / scrollable, 1)})`;
     };
     const onScroll = () => { if (!raf) raf = window.requestAnimationFrame(update); };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -53,7 +50,7 @@ export function Header({ solid = false }: { solid?: boolean }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div ref={progressBar} aria-hidden="true" className="absolute inset-x-0 top-0 z-50 h-[2px] origin-left bg-gold" style={{ transform: 'scaleX(0)' }} />
+      <div aria-hidden="true" className="marques-scroll-progress absolute inset-x-0 top-0 z-50 h-[2px] origin-left bg-gold" />
       <div className={`border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${solid || scrolled || menuOpen ? 'border-gold/15 bg-night/98 shadow-[0_12px_32px_rgba(0,0,0,.20)] backdrop-blur-xl' : 'border-white/10 bg-night/40 backdrop-blur-md'}`}>
         <div className="mx-auto flex h-[86px] w-[min(1400px,calc(100%-48px))] items-center justify-between gap-8 lg:h-[96px] lg:w-[min(1400px,calc(100%-112px))]">
           <a href="/#inicio" aria-label="Marques Veículos, voltar ao início" onClick={() => setMenuOpen(false)} className="z-10 -ml-2 flex w-[176px] shrink-0 items-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold lg:w-[194px]">
