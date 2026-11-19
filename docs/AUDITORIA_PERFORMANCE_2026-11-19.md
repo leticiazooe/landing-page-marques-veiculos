@@ -59,9 +59,19 @@ GitHub Actions: https://github.com/leticiazooe/landing-page-marques-veiculos/act
 
 ### Atenção à variação do Lighthouse
 
-Uma execução posterior, após otimizar o logo, mostrou um pico atípico de execução de JS no runner GitHub (TBT **2.190ms**, mobile **66** e desktop **98**). Não há evidência de regressão no bundle: o build e as verificações passaram; a variação foi de execução no runner/navegador. Não se deve prometer nota 100 em toda execução do Lighthouse nem omitir resultados desfavoráveis.
+Uma execução posterior, após otimizar o logo, mostrou um pico atípico de execução de JS na medição Lighthouse (TBT **2.190ms**, mobile **66** e desktop **98**). Não há evidência de crescimento do bundle: o build e as verificações passaram. A causa exata desse pico não foi isolada, mas a variação entre execuções é real. Não se deve prometer nota 100 em toda execução do Lighthouse nem omitir resultados desfavoráveis.
 
 A auditoria `.github/workflows/lighthouse.yml` foi atualizada para executar **3 amostras mobile** e reportar a mediana, mínimo e máximo, além de uma amostra desktop. Os resultados ficam nos logs e em artefato JSON.
+
+### Medição com três amostras mobile após otimização do logotipo
+
+GitHub Actions: https://github.com/leticiazooe/landing-page-marques-veiculos/actions/runs/44546338694
+
+- Mobile: **76, 95, 95**, mediana **95**; LCP das duas amostras de 95: **2,9s**, TBT **10–20ms**.
+- Desktop: **97**, LCP **1,1s**, TBT **0ms**.
+- O maior elemento LCP é o parágrafo do hero, não a imagem. A renderização depende também da latência do servidor/CDN, do carregamento da fonte e da disponibilidade da CPU.
+- A amostra 76 apresentou FCP **3,1s** e TBT **300ms**, enquanto as duas seguintes ficaram com FCP **1,2s**. Não interpretar uma nota isolada como regressão ou garantia de resultado.
+- A otimização de logotipo reduziu transferências, mas, como esperado, não garante nota máxima em cada teste.
 
 ## Recomendações de acompanhamento
 
